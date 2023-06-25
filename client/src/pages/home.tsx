@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Homenavbar from "../components/Homenavbar";
 import logo from "../assets/home-bgd.svg";
+import userReviews from "../utils/reviews";
 
 
 export default function Home() {
@@ -103,9 +104,90 @@ Start Shopping
         </div>
       </div>
       {/* sction 3 */}
-      <div className="flex justify-center items-center bg-black">
-        
+      <div className="  bg-gray-900 text-white ">
+        <br/>
+        <p  className="text-center text-3xl mt-10">Our <span className="font-bold text-blue-400 underline">User's</span> love us</p>
+        <div className="flex justify-center items-center bg-gray-900 text-white mx-20">
+  {userReviews.slice(0, 3).map((review) => (
+    <div key={review.id} className="bg-gray-800 p-4 rounded-lg my-10 mx-10">
+      <div className="flex items-center mb-4">
+        <img src={review.pic} alt="review_pic" className="rounded-full h-12 w-12" />
+        <h3 className="text-xl font-semibold ml-2">{review.name}</h3>
       </div>
+      <hr className="border-gray-600 my-4" />
+      <p className="text-lg">{review.review}</p>
+    </div>
+  ))}
+</div>
+{/* Footer */}
+<div className="py-8 sm:py-10 bg-slate-800">
+        <div className="flex flex-col-reverse sm:flex-row justify-between max-w-5.5xl mx-4 sm:mx-auto ">
+          <div className="w-44">
+            {/* Logo */}
+            <div className="flex items-center">
+              <h1 className="text-xl text-white">Golden Ink</h1>
+            </div>
+            <p className="my-2 text-sm font-light text-accent-green-gray">
+              Unleashing creativity, crafting golden stories that captivate
+              audiences.
+            </p>
+            {/* socials */}
+            <div className=""></div>
+          </div>
+          {/* Services */}
+          <div className="mt-2 mb-3 text-sm font-light w-44 text-primary-400">
+            <h1 className="mb-4 text-base text-white">Services</h1>
+            <p>Free Shipping</p>
+            <p>Full Refund</p>
+            <p>24/7 Customer Service</p>
+          </div>
+          {/* Routes */}
+          <div className="w-32 mt-2 mb-3 text-sm font-light text-primary-400">
+            <h1 className="mb-4 text-base text-white">Routes</h1>
+            <p>Store</p>
+            <p>About Us</p>
+            <p>Contact</p>
+          </div>
+          {/* location */}
+          <div className="w-40 mt-2 mb-3 text-sm font-light text-primary-400">
+            <h1 className="mb-4 text-base text-white">Location</h1>
+            <p>Mumbai</p>
+            <p>Delhi</p>
+            <p>Kolkata</p>
+            <p>Bangalore</p>
+          </div>
+          {/* Newsletter */}
+          <div className="mt-2 mb-3 text-sm font-light sm:w-60 text-primary-400">
+            <h1 className="mb-4 text-base text-white">
+              Sign up to our newsletter.
+            </h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <div className="relative w-full mt-3">
+              {/* <input
+                className="w-full px-4 py-3 text-white rounded outline-none bg-accent-blue-33"
+                type="text"
+                placeholder="Email Address"
+              /> */}
+            </div>
+            <button
+              className="px-4 py-4 text-white bg-black"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Click me{" "}
+            </button>
+          </div>
+        </div>
+        <div className="mx-auto mt-5 sm:w-96">
+          <hr />
+          <p className="mt-5 text-sm text-center  sm:w-auto text-primary-400">
+            Copyright © 2023 Golden Ink. All Rights Reserved.
+          </p>
+        </div>
+        </div>
+</div>
+
     </div>
   );
 }
