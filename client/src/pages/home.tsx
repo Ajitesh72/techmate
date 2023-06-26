@@ -107,7 +107,7 @@ Start Shopping
       <div className="  bg-gray-900 text-white ">
         <br/>
         <p  className="text-center text-3xl mt-10">Our <span className="font-bold text-blue-400 underline">User's</span> love us</p>
-        <div className="flex justify-center items-center bg-gray-900 text-white mx-20">
+        <div className="sm:flex justify-center items-center flex-wrap lg:flex-nowrap bg-gray-900 text-white mx-20 ">
   {userReviews.slice(0, 3).map((review) => (
     <div key={review.id} className="bg-gray-800 p-4 rounded-lg my-10 mx-10">
       <div className="flex items-center mb-4">
@@ -121,19 +121,8 @@ Start Shopping
 </div>
 {/* Footer */}
 <div className="py-8 sm:py-10 bg-slate-800">
-        <div className="flex flex-col-reverse sm:flex-row justify-between max-w-5.5xl mx-4 sm:mx-auto ">
-          <div className="w-44">
-            {/* Logo */}
-            <div className="flex items-center">
-              <h1 className="text-xl text-white">Golden Ink</h1>
-            </div>
-            <p className="my-2 text-sm font-light text-accent-green-gray">
-              Unleashing creativity, crafting golden stories that captivate
-              audiences.
-            </p>
-            {/* socials */}
-            <div className=""></div>
-          </div>
+        <div className="flex flex-col-reverse sm:flex-row justify-center max-w-5.5xl mx-4 sm:mx-auto ">
+          
           {/* Services */}
           <div className="mt-2 mb-3 text-sm font-light w-44 text-primary-400">
             <h1 className="mb-4 text-base text-white">Services</h1>
@@ -170,7 +159,7 @@ Start Shopping
               /> */}
             </div>
             <button
-              className="px-4 py-4 text-white bg-black"
+              className="px-20 py-2 text-white bg-black"
               onClick={() => {
                 navigate("/login");
               }}
@@ -179,10 +168,12 @@ Start Shopping
             </button>
           </div>
         </div>
-        <div className="mx-auto mt-5 sm:w-96">
+        <div className="mx-40">
           <hr />
+        </div>
+        <div className="mx-auto mt-5 sm:w-96">
           <p className="mt-5 text-sm text-center  sm:w-auto text-primary-400">
-            Copyright © 2023 Golden Ink. All Rights Reserved.
+            Copyright © 2023 TechMate. All Rights Reserved.
           </p>
         </div>
         </div>
