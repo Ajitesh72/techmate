@@ -1,12 +1,9 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [bool, setBool] = useState<boolean>(false);
-  const [dbool, setDBool] = useState<boolean>(false);
   
   return (
     <div className=" text-2xl bg-blue-50"> {/* Add top margin to the parent div */}
