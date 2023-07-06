@@ -9,6 +9,8 @@ export default function SignUp() {
   const [userName, setUserName] = useState<string>("");
   const [userProfession, setUserProfession] = useState<string>("");
   const [usergender, setUserGender] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
 
   const navigate = useNavigate();
@@ -47,8 +49,13 @@ export default function SignUp() {
         setStep(step + 1);
     }
     if (step === 5) {
-      setStep(0);
-      navigate("/techmateHome"); // Replace "/next-page" with the actual path to navigate to
+      if(email.length>5 && password.length>2){
+        setStep(0);
+        navigate("/techmateHome"); // Replace "/next-page" with the actual path to navigate to
+      }
+      else{
+        toast.error("Please enter your email and password correctly")
+      }
     }
   };
 
@@ -94,7 +101,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div className="w-5 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 2 ? "bg-blue-600" : "bg-gray-700"
@@ -126,7 +133,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div className="w-5 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 3 ? "bg-blue-600" : "bg-gray-700"
@@ -162,7 +169,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div className="w-5 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 4 ? "bg-blue-600" : "bg-gray-700"
@@ -188,7 +195,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div className="w-5 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 5 ? "bg-blue-600" : "bg-gray-700"
@@ -347,23 +354,32 @@ export default function SignUp() {
                 You need to grant Techmate access to your location so we can
                 show you awesome bees in your area
               </p>
-              {/* <div
-                    className={`mt-5 px-20 py-3 text-white rounded-full sm:mt-10 hover:cursor-pointer ${
-                      userProfession === "Student"
-                        ? "bg-blue-600"
-                        : "bg-yellow-600"
-                    }`}
-                    onClick={() => {
-                      setLocation(true);
-                    }}
-                  >
-                    Allow location Access
-                  </div> */}
             </div>
           )}
+         {step === 5 && (
+  <div className="flex flex-col justify-center">
+    <div className="flex flex-col items-center">
+      <h1 className="font-semibold text-xl">Enter your Email Id</h1>
+      <input
+        className="mt-2 mb-5 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+        placeholder="johndoe@gmail.com"
+        type="email"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+    </div>
+    <div className="flex flex-col items-center">
+      <h1 className="font-semibold text-xl">Enter your Password</h1>
+      <input
+        className="mt-2 mb-2 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+        placeholder="john123"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+    </div>
+  </div>
+)}
+
           <div className="mt-5 mb-5 sm:mt-10 sm:mb-0">
-            {/* {step>=2 && <br className="flex sm:hidden"/>} */}
-            {/* {step>=2 && <br className="flex sm:hidden"/>} */}
             {step < 5 && (
               <button
                 className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
