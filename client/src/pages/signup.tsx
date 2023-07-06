@@ -2,6 +2,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
+import map from "../assets/animated_map.gif";
 
 export default function SignUp() {
   const [step, setStep] = useState<number>(1);
@@ -36,15 +37,14 @@ export default function SignUp() {
       }
     }
     if (step === 3) {
-      if(selectedPhoto!=null){
+      if (selectedPhoto != null) {
         setStep(step + 1);
-      }
-      else{
+      } else {
         toast.error("Please upload a picture");
       }
     }
     if (step === 4) {
-      setStep(step + 1);
+        setStep(step + 1);
     }
     if (step === 5) {
       setStep(0);
@@ -195,14 +195,14 @@ export default function SignUp() {
                 }`}
               >
                 {step >= 5 ? (
-                   <svg
-                   xmlns="http://www.w3.org/2000/svg"
-                   className="w-6 h-6 text-white mx-auto"
-                   fill="currentColor"
-                   viewBox="0 0 640 512"
-                 >
-                   <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H392.6c-5.4-9.4-8.6-20.3-8.6-32V352c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7H178.3zM528 240c17.7 0 32 14.3 32 32v48H496V272c0-17.7 14.3-32 32-32zm-80 32v48c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32V272c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
-                 </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white mx-auto"
+                    fill="currentColor"
+                    viewBox="0 0 640 512"
+                  >
+                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H392.6c-5.4-9.4-8.6-20.3-8.6-32V352c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7H178.3zM528 240c17.7 0 32 14.3 32 32v48H496V272c0-17.7 14.3-32 32-32zm-80 32v48c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32V272c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
+                  </svg>
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -331,6 +331,34 @@ export default function SignUp() {
 
                 <p className="hidden sm:flex">Drag and Drop your photo here</p>
               </label>
+            </div>
+          )}
+          {step === 4 && (
+            <div>
+              <img
+                src={map}
+                className="mx-auto h-40 w-40 rounded-full mt-5 mb-5"
+                alt=""
+              />
+              <h1 className="font-bold text-xl ">
+                We need your location to show who's nearby
+              </h1>
+              <p className="text-xs text-gray-700">
+                You need to grant Techmate access to your location so we can
+                show you awesome bees in your area
+              </p>
+              {/* <div
+                    className={`mt-5 px-20 py-3 text-white rounded-full sm:mt-10 hover:cursor-pointer ${
+                      userProfession === "Student"
+                        ? "bg-blue-600"
+                        : "bg-yellow-600"
+                    }`}
+                    onClick={() => {
+                      setLocation(true);
+                    }}
+                  >
+                    Allow location Access
+                  </div> */}
             </div>
           )}
           <div className="mt-5 mb-5 sm:mt-10 sm:mb-0">
