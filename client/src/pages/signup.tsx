@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
@@ -8,13 +8,22 @@ export default function SignUp() {
   const [userName, setUserName] = useState<string>("");
   const [userProfession, setUserProfession] = useState<string>("");
   const [usergender, setUserGender] = useState<string>("");
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+
   const navigate = useNavigate();
+
+  const handlePhotoUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = event.target.files?.[0];
+    if (file) {
+      setSelectedPhoto(file);
+    }
+    console.log(selectedPhoto);
+  };
 
   const handleContinue = () => {
     if (step === 1) {
       if (userName.length < 4) {
         toast.error("A valid Username must have atleast 4 characters");
-        console.log("hii");
       } else {
         setStep(step + 1);
       }
@@ -27,17 +36,21 @@ export default function SignUp() {
       }
     }
     if (step === 3) {
+      if(selectedPhoto!=null){
+        setStep(step + 1);
+      }
+      else{
+        toast.error("Please upload a picture");
+      }
+    }
+    if (step === 4) {
+      setStep(step + 1);
+    }
+    if (step === 5) {
       setStep(0);
       navigate("/techmateHome"); // Replace "/next-page" with the actual path to navigate to
     }
   };
-
-  const handleBack = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  };
-  console.log(usergender);
 
   return (
     <div className="">
@@ -81,7 +94,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-20 h-1 bg-blue-200"></div>
+              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 2 ? "bg-blue-600" : "bg-gray-700"
@@ -113,7 +126,7 @@ export default function SignUp() {
                   </svg>
                 )}
               </div>
-              <div className="w-20 h-1 bg-blue-200"></div>
+              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
               <div
                 className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
                   step >= 3 ? "bg-blue-600" : "bg-gray-700"
@@ -146,6 +159,58 @@ export default function SignUp() {
                       d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9zm-5 3a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2-1a3 3 0 00-3 3v10a3 3 0 003 3h8a3 3 0 003-3V7a3 3 0 00-3-3H6z"
                       clipRule="evenodd"
                     ></path>
+                  </svg>
+                )}
+              </div>
+              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div
+                className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
+                  step >= 4 ? "bg-blue-600" : "bg-gray-700"
+                }`}
+              >
+                {step >= 4 ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white mx-auto"
+                    fill="currentColor"
+                    viewBox="0 0 384 512"
+                  >
+                    <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white mx-auto"
+                    fill="#a6afbf"
+                    viewBox="0 0 384 512"
+                  >
+                    <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                  </svg>
+                )}
+              </div>
+              <div className="w-10 h-1 bg-blue-200 sm:w-20"></div>
+              <div
+                className={`flex justify-center items-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 ${
+                  step >= 5 ? "bg-blue-600" : "bg-gray-700"
+                }`}
+              >
+                {step >= 5 ? (
+                   <svg
+                   xmlns="http://www.w3.org/2000/svg"
+                   className="w-6 h-6 text-white mx-auto"
+                   fill="currentColor"
+                   viewBox="0 0 640 512"
+                 >
+                   <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H392.6c-5.4-9.4-8.6-20.3-8.6-32V352c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7H178.3zM528 240c17.7 0 32 14.3 32 32v48H496V272c0-17.7 14.3-32 32-32zm-80 32v48c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32V272c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
+                 </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-white mx-auto"
+                    fill="#a6afbf"
+                    viewBox="0 0 640 512"
+                  >
+                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H392.6c-5.4-9.4-8.6-20.3-8.6-32V352c0-2.1 .1-4.2 .3-6.3c-31-26-71-41.7-114.6-41.7H178.3zM528 240c17.7 0 32 14.3 32 32v48H496V272c0-17.7 14.3-32 32-32zm-80 32v48c-17.7 0-32 14.3-32 32V480c0 17.7 14.3 32 32 32H608c17.7 0 32-14.3 32-32V352c0-17.7-14.3-32-32-32V272c0-44.2-35.8-80-80-80s-80 35.8-80 80z" />
                   </svg>
                 )}
               </div>
@@ -243,32 +308,50 @@ export default function SignUp() {
                 Adding photos is a great way to show off more about yourself!You
                 can drag your photo's right from your desktop.
               </p>
-              <label htmlFor="upload-input" className="mt-5 px-40 py-20 sm:px-60 bg-blue-200 rounded-3xl text-center inline-block hover:cursor-pointer">
-  <input
-    type="file"
-    accept="image/*"
-    id="upload-input"
-    className="hidden"
-  />
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:w-20 sm:h-20 inline-block mr-2" viewBox="0 0 24 24">
-  <path d="M0 0h24v24H0z" fill="none" />
-  <path d="M12 4L2 14h3v6h14v-6h3L12 4zm4.5 12h-9v-2h9v2zm-3-7V3.5l5.5 5.5h-4.25v6h-2.5v-6H6.75L12 3.5z" />
-</svg>
+              <label
+                htmlFor="upload-input"
+                className="mt-5 px-40 py-20 sm:px-60 bg-blue-200 rounded-3xl text-center inline-block hover:cursor-pointer"
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="upload-input"
+                  className="hidden"
+                  onChange={handlePhotoUpload}
+                />
 
-  <p className="hidden sm:flex">Drag and Drop your photo here</p>
-</label>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 sm:w-20 sm:h-20 inline-block mr-2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M12 4L2 14h3v6h14v-6h3L12 4zm4.5 12h-9v-2h9v2zm-3-7V3.5l5.5 5.5h-4.25v6h-2.5v-6H6.75L12 3.5z" />
+                </svg>
 
+                <p className="hidden sm:flex">Drag and Drop your photo here</p>
+              </label>
             </div>
           )}
           <div className="mt-5 mb-5 sm:mt-10 sm:mb-0">
             {/* {step>=2 && <br className="flex sm:hidden"/>} */}
             {/* {step>=2 && <br className="flex sm:hidden"/>} */}
-            <button
-              className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
-              onClick={handleContinue}
-            >
-              {step > 2 ? "Finish" : "Continue"}
-            </button>
+            {step < 5 && (
+              <button
+                className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
+                onClick={handleContinue}
+              >
+                Continue
+              </button>
+            )}
+            {step === 5 && (
+              <button
+                className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
+                onClick={handleContinue}
+              >
+                SIGNUP
+              </button>
+            )}
           </div>
         </div>
       </div>
