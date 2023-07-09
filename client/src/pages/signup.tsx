@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
@@ -20,7 +20,6 @@ export default function SignUp() {
     if (file) {
       setSelectedPhoto(file);
     }
-    console.log(selectedPhoto);
   };
 
   const handleContinue = () => {
@@ -46,15 +45,38 @@ export default function SignUp() {
       }
     }
     if (step === 4) {
-        setStep(step + 1);
+      // Request location access
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          // Send a request to the Geocoding API
+          fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              // Extract the address from the response
+              const address = data.results[0].formatted_address;
+              console.log(address); // Output the address
+              setStep(step + 1);
+            })
+            .catch((error) => {
+              console.error("Error occurred during geocoding request:", error);
+            });
+        },
+        (error) => {
+          toast.error("Location access denied or an error occurred");
+        }
+      );
     }
+
     if (step === 5) {
-      if(email.length>5 && password.length>2){
+      if (email.length > 5 && password.length > 2) {
         setStep(0);
         navigate("/techmateHome"); // Replace "/next-page" with the actual path to navigate to
-      }
-      else{
-        toast.error("Please enter your email and password correctly")
+      } else {
+        toast.error("Please enter your email and password correctly");
       }
     }
   };
@@ -356,28 +378,28 @@ export default function SignUp() {
               </p>
             </div>
           )}
-         {step === 5 && (
-  <div className="flex flex-col justify-center">
-    <div className="flex flex-col items-center">
-      <h1 className="font-semibold text-xl">Enter your Email Id</h1>
-      <input
-        className="mt-2 mb-5 px-4 rounded-full sm:h-10 w-auto sm:w-96"
-        placeholder="johndoe@gmail.com"
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-    </div>
-    <div className="flex flex-col items-center">
-      <h1 className="font-semibold text-xl">Enter your Password</h1>
-      <input
-        className="mt-2 mb-2 px-4 rounded-full sm:h-10 w-auto sm:w-96"
-        placeholder="john123"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-    </div>
-  </div>
-)}
+          {step === 5 && (
+            <div className="flex flex-col justify-center">
+              <div className="flex flex-col items-center">
+                <h1 className="font-semibold text-xl">Enter your Email Id</h1>
+                <input
+                  className="mt-2 mb-5 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+                  placeholder="johndoe@gmail.com"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col items-center">
+                <h1 className="font-semibold text-xl">Enter your Password</h1>
+                <input
+                  className="mt-2 mb-2 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+                  placeholder="john123"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
 
           <div className="mt-5 mb-5 sm:mt-10 sm:mb-0">
             {step < 5 && (
