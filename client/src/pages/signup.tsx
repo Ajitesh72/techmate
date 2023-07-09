@@ -50,20 +50,21 @@ export default function SignUp() {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
+          setStep(step+1)
           // Send a request to the Geocoding API
-          fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              // Extract the address from the response
-              const address = data.results[0].formatted_address;
-              console.log(address); // Output the address
-              setStep(step + 1);
-            })
-            .catch((error) => {
-              console.error("Error occurred during geocoding request:", error);
-            });
+          // fetch(
+          //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
+          // )
+          //   .then((response) => response.json())
+          //   .then((data) => {
+          //     // Extract the address from the response
+          //     const address = data.results[0].formatted_address;
+          //     console.log(address); // Output the address
+          //     setStep(step + 1);
+          //   })
+          //   .catch((error) => {
+          //     console.error("Error occurred during geocoding request:", error);
+          //   });
         },
         (error) => {
           toast.error("Location access denied or an error occurred");
