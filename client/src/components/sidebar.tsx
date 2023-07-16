@@ -27,7 +27,7 @@ export default function Sidebar({name}:NameProps) {
           <img className="mx-auto" src={logo} alt="" />
         </div>
         {/* 1st option */}
-    <div onClick={() => navigate("/explore")} className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl hover:bg-violet-200 cursor-pointer">
+    <div onClick={() => navigate("/explore")} className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -40,7 +40,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Explore</span>
         </div>
         {/* 2nd option */}
-        <div className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -53,7 +53,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Events</span>
         </div>
         {/* 3rd option */}
-        <div className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -66,7 +66,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Post</span>
         </div>
         {/* 4th option */}
-        <div className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -79,7 +79,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Chat</span>
         </div>
         {/* 5th option */}
-        <div className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -92,7 +92,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Connects</span>
         </div>
         {/* 6th option */}
-        <div onClick={() => navigate("/profile")}className="flex gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200  cursor-pointer">
+        <div onClick={() => navigate("/profile")}className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200  cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -103,7 +103,7 @@ export default function Sidebar({name}:NameProps) {
           >
             <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
           </svg>{" "}
-          <span >Profile</span>
+          <span>Profile</span>
         </div>
         {/* when toggle is true */}
         {toggle && (
