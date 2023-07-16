@@ -9,7 +9,7 @@ export default function Home() {
     <div className="">
       <Homenavbar />
       <div className="flex justify-center items-center bg-blue-50">
-        <div className="mt-20 mb-40 mx-5 sm:mx-20 lg:mb-40">
+        <div className="mt-10 mb-40 mx-5 sm:mx-20 lg:mb-40 lg:mt-20">
           <p className="text-blue-700 ">#Explore_Your_Options</p>
           <div className="text-5xl mt-5 mb-5 font">
             Your{" "}
@@ -203,6 +203,12 @@ export default function Home() {
               Copyright © 2023 TechMate. All Rights Reserved.
             </p>
           </div>
+        </div>
+        <div className="bg-slate-800 ">
+        <div className="bg-gradient-to-b from-blue-200 to-slate-800 width-screen h-4 rounded-t-3xl">
+</div>
+
+
         </div>
       </div>
     </div>
