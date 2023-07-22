@@ -18,7 +18,7 @@ export default function PhoneMenu({name}:NameProps) {
   return (
     <div className="flex  py-2 w-screen px-4 justify-between">
         {/* 1st */}
-      <div  className="" >
+      <div  className="">
         <svg
         onClick={()=>navigate("/explore")}
         className="svg-icon"

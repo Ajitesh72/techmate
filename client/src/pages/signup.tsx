@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
 import map from "../assets/animated_map.gif";
@@ -22,12 +23,21 @@ export default function SignUp() {
     }
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (step === 1) {
       if (userName.length < 4) {
-        toast.error("A valid Username must have atleast 4 characters");
+        toast.error("A valid Username must have at least 4 characters");
       } else {
-        setStep(step + 1);
+        const response = await axios.post(
+          " http://localhost:8080/checkuserName",
+          { userName }
+        ); // <-- Remove the "body" property
+        console.log(response);
+        if (response.status === 200) {
+          setStep(step + 1);
+        } else {
+          toast.error("This Username is already taken");
+        }
       }
     }
     if (step === 2) {
@@ -50,7 +60,7 @@ export default function SignUp() {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-          setStep(step+1)
+          setStep(step + 1);
           // Send a request to the Geocoding API
           // fetch(
           //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
@@ -73,19 +83,41 @@ export default function SignUp() {
     }
 
     if (step === 5) {
-      if (email.length > 5 && password.length > 2) {
-        setStep(0);
-        navigate("/techmateHome"); // Replace "/next-page" with the actual path to navigate to
+      if (email.length > 4 && password.length > 4) {
+        try {
+          // Send a request to create the user on the server
+          const userCreatedResponse = await axios.post("http://localhost:8080/createuser", {
+            userName, // You may want to include a username property here as well
+            email,
+            password,
+          });
+    
+          console.log(userCreatedResponse);
+    
+          if (userCreatedResponse.status === 200) {
+            // User created successfully, now show the success message with a delay
+            toast.success("Verification Link Sent on the registered Email Address");
+            setTimeout(() => {
+              navigate("/login"); // Replace "/login" with the actual path to navigate to
+            }, 2000);
+          } else {
+            toast.error("Error creating user.");
+          }
+        } catch (error) {
+          console.error("Error creating user:", error);
+          toast.error("Error creating user.");
+        }
       } else {
-        toast.error("Please enter your email and password correctly");
+        toast.error("Please note that email and password should have at least 5 characters");
       }
     }
-  };
+  }
 
   return (
     <div className="">
       {/* <div className="flex justify-center items-center h-200 bg-blue-50 text-center sm:h-screen "> */}
       <div className="flex justify-center items-center h-screen bg-blue-50 text-center ">
+        
         <div className="mx-5  mt-40 mb-20 sm:mt-0 ">
           <div>
             <img className="mx-auto" src={logo} alt="" />
@@ -384,7 +416,7 @@ export default function SignUp() {
               <div className="flex flex-col items-center">
                 <h1 className="font-semibold text-xl">Enter your Email Id</h1>
                 <input
-                  className="mt-2 mb-5 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+                  className="mt-2 mb-5 px-4 rounded-full sm:h-10 w-full sm:w-96"
                   placeholder="johndoe@gmail.com"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -393,7 +425,7 @@ export default function SignUp() {
               <div className="flex flex-col items-center">
                 <h1 className="font-semibold text-xl">Enter your Password</h1>
                 <input
-                  className="mt-2 mb-2 px-4 rounded-full sm:h-10 w-auto sm:w-96"
+                  className="mt-2 mb-2 px-4 rounded-full w-full sm:h-10 sm:w-96"
                   placeholder="john123"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
@@ -402,7 +434,7 @@ export default function SignUp() {
             </div>
           )}
 
-          <div className="mt-5 mb-5 sm:mt-10 sm:mb-0">
+          <div className="mt-5 mb-5 sm:mt-5 sm:mb-0">
             {step < 5 && (
               <button
                 className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
@@ -413,13 +445,14 @@ export default function SignUp() {
             )}
             {step === 5 && (
               <button
-                className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer sm:px-40 "
+                className="px-20 py-2 text-white bg-black rounded-full hover:bg-blue-600 cursor-pointer  sm:px-40 "
                 onClick={handleContinue}
               >
                 SIGNUP
               </button>
             )}
           </div>
+          <h2 className="text-sm text-center my-2 text-blue-900 underline cursor-pointer" onClick={()=>navigate("/login")}>Click here if you have already made an Account</h2>
         </div>
       </div>
     </div>
