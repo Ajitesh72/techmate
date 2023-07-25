@@ -28,15 +28,19 @@ export default function SignUp() {
       if (userName.length < 4) {
         toast.error("A valid Username must have at least 4 characters");
       } else {
-        const response = await axios.post(
-          " http://localhost:8080/checkuserName",
-          { userName }
-        ); // <-- Remove the "body" property
-        console.log(response);
-        if (response.status === 200) {
-          setStep(step + 1);
-        } else {
-          toast.error("This Username is already taken");
+        try {
+          const response = await axios.post(
+            "http://localhost:8080/checkuserName",
+            { userName }
+          );
+          if (response.data === "Username available") {
+            setStep(step + 1);
+          } else {
+            toast.error(response.data);
+          }
+        } catch (error) {
+          console.error("Error while making the request:", error);
+          toast.error("An error occurred while checking the username.");
         }
       }
     }
@@ -61,6 +65,25 @@ export default function SignUp() {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setStep(step + 1);
+          // Replace 'YOUR_API_KEY' with your actual API key from LocationIQ
+          // https://my.locationiq.com/dashboard/?firstLogin=1
+          const apiKey = "pk.41784fe0e1111e9b2053fc5683e5a894";
+          const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
+
+          // Fetch the location details using the LocationIQ API
+          fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+              // The location details are in the 'data' object
+              console.log(data.address.town); //mira bhayander
+              console.log(data.address.suburb); //mira road
+              console.log(data.address.state); //maharasthra
+              console.log(data.address.country); //india
+              // Now you can extract the city, state, country, etc. from the 'data' object and use them as needed.
+            })
+            .catch((error) => {
+              console.error("Error fetching location details:", error);
+            });
           // Send a request to the Geocoding API
           // fetch(
           //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
@@ -86,17 +109,22 @@ export default function SignUp() {
       if (email.length > 4 && password.length > 4) {
         try {
           // Send a request to create the user on the server
-          const userCreatedResponse = await axios.post("http://localhost:8080/createuser", {
-            userName, // You may want to include a username property here as well
-            email,
-            password,
-          });
-    
+          const userCreatedResponse = await axios.post(
+            "http://localhost:8080/createuser",
+            {
+              userName, // You may want to include a username property here as well
+              email,
+              password,
+            }
+          );
+
           console.log(userCreatedResponse);
-    
+
           if (userCreatedResponse.status === 200) {
             // User created successfully, now show the success message with a delay
-            toast.success("Verification Link Sent on the registered Email Address");
+            toast.success(
+              "Verification Link Sent on the registered Email Address"
+            );
             setTimeout(() => {
               navigate("/login"); // Replace "/login" with the actual path to navigate to
             }, 2000);
@@ -108,16 +136,17 @@ export default function SignUp() {
           toast.error("Error creating user.");
         }
       } else {
-        toast.error("Please note that email and password should have at least 5 characters");
+        toast.error(
+          "Please note that email and password should have at least 5 characters"
+        );
       }
     }
-  }
+  };
 
   return (
     <div className="">
       {/* <div className="flex justify-center items-center h-200 bg-blue-50 text-center sm:h-screen "> */}
       <div className="flex justify-center items-center h-screen bg-blue-50 text-center ">
-        
         <div className="mx-5  mt-40 mb-20 sm:mt-0 ">
           <div>
             <img className="mx-auto" src={logo} alt="" />
@@ -452,7 +481,12 @@ export default function SignUp() {
               </button>
             )}
           </div>
-          <h2 className="text-sm text-center my-2 text-blue-900 underline cursor-pointer" onClick={()=>navigate("/login")}>Click here if you have already made an Account</h2>
+          <h2
+            className="text-sm text-center my-2 text-blue-900 underline cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            Click here if you have already made an Account
+          </h2>
         </div>
       </div>
     </div>

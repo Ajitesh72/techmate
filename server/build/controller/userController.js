@@ -11,37 +11,51 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
-const firestore_1 = require("firebase/firestore");
 const auth_1 = require("firebase/auth");
+const auth_2 = require("firebase/auth");
+const db = firebaseconfig_1.admin.firestore();
+const auth = (0, auth_1.getAuth)(firebaseconfig_1.app);
 const checkServer = (req, res) => {
     return res.status(200).send("Techmate server running");
 };
 exports.checkServer = checkServer;
 const checkUserName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.userName; // Access the userName from req.body
-    // try {
-    //   const userCollectionRef = collection(db, "user");
-    //   const querySnapshot = await getDocs(userCollectionRef);
-    //   console.log("query snapshot is:",querySnapshot.docs)
-    // } catch (error) {
-    //   console.error("Error printing documents:", error);
-    // }
-    return res.send("hey");
+    console.log(username);
+    try {
+        let query = db.collection('usernames').where('username', '==', username);
+        const querySnapshot = yield query.get();
+        // Check if the querySnapshot is empty
+        if (querySnapshot.empty) {
+            console.log("No documents found with username === 'trial'");
+            return res.send("Username available");
+        }
+        else {
+            querySnapshot.forEach((documentSnapshot) => {
+                console.log(`Found document at ${documentSnapshot.ref.path}`);
+                return res.send("Username unavailable");
+            });
+        }
+    }
+    catch (error) {
+        console.error("Error querying the user collection:", error);
+        return res.status(500).send(error);
+    }
 });
 exports.checkUserName = checkUserName;
 const createUser = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    (0, auth_1.createUserWithEmailAndPassword)(firebaseconfig_1.auth, email, password)
+    console.log(email);
+    (0, auth_2.createUserWithEmailAndPassword)(auth, email, password)
         .then((userCredential) => __awaiter(void 0, void 0, void 0, function* () {
         // User account created successfully
         const user = userCredential.user;
         console.log("User created:", user.uid);
         // // Send email verification
         try {
-            yield (0, auth_1.sendEmailVerification)(user);
+            yield (0, auth_2.sendEmailVerification)(user);
             console.log("Verification email sent.");
-            const userref = (0, firestore_1.doc)(firebaseconfig_1.db, "user", user.uid);
             return res.status(200).send("User Created");
         }
         catch (error) {
@@ -61,12 +75,16 @@ const signinUser = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);
-    (0, auth_1.signInWithEmailAndPassword)(firebaseconfig_1.auth, email, password)
+    var userId;
+    (0, auth_2.signInWithEmailAndPassword)(auth, email, password)
         .then((userCredential) => {
         const user = userCredential.user;
         // Check if email is verified
         if (user.emailVerified) {
-            return res.status(200).json({ message: "User signed in successfully" });
+            user.getIdToken(true)
+                .then((id) => {
+                return res.status(200).json({ message: "User signed in successfully", "token": id });
+            });
         }
         else {
             return res.status(200).json({ message: "Please verify your email before proceeding." });
@@ -76,7 +94,7 @@ const signinUser = (req, res) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error("Error signing in user:", errorCode, errorMessage);
-        return res.status(500).json({ error: "Error signing in user" });
+        return res.status(500).json({ error: "Please check your credentials" });
     });
 };
 exports.signinUser = signinUser;
