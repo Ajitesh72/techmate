@@ -5,8 +5,7 @@ import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
 import map from "../assets/animated_map.gif";
 
-import dotenv from "dotenv";
-dotenv.config();
+// 
 
 
 console.log("process.env.apiUrl")
