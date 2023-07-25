@@ -5,18 +5,30 @@ import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
 import map from "../assets/animated_map.gif";
 
+import dotenv from "dotenv";
+dotenv.config();
+
+
+console.log("process.env.apiUrl")
 export default function SignUp() {
+  type LocationData = {
+    town: string;
+    suburb: string;
+    state: string;
+    country: string;
+  };
   const [step, setStep] = useState<number>(1);
   const [userName, setUserName] = useState<string>("");
   const [userProfession, setUserProfession] = useState<string>("");
   const [usergender, setUserGender] = useState<string>("");
+  const [userlocation, setUserLocation] = useState<LocationData>({});
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
 
   const navigate = useNavigate();
 
-  const handlePhotoUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = (event: ChangeEvent<HTMLInputElement>): void => {
     const file: File | undefined = event.target.files?.[0];
     if (file) {
       setSelectedPhoto(file);
@@ -53,6 +65,7 @@ export default function SignUp() {
     }
     if (step === 3) {
       if (selectedPhoto != null) {
+        console.log(selectedPhoto);
         setStep(step + 1);
       } else {
         toast.error("Please upload a picture");
@@ -67,37 +80,23 @@ export default function SignUp() {
           setStep(step + 1);
           // Replace 'YOUR_API_KEY' with your actual API key from LocationIQ
           // https://my.locationiq.com/dashboard/?firstLogin=1
-          const apiKey = "pk.41784fe0e1111e9b2053fc5683e5a894";
-          const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`;
-
+          const apiKey = process.env.apiKey;
+          const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`
           // Fetch the location details using the LocationIQ API
           fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
               // The location details are in the 'data' object
-              console.log(data.address.town); //mira bhayander
-              console.log(data.address.suburb); //mira road
-              console.log(data.address.state); //maharasthra
-              console.log(data.address.country); //india
-              // Now you can extract the city, state, country, etc. from the 'data' object and use them as needed.
+              setUserLocation({
+                town: data.address.town,
+                suburb: data.address.suburb,
+                state: data.address.state,
+                country: data.address.country,
+              });
             })
             .catch((error) => {
               console.error("Error fetching location details:", error);
             });
-          // Send a request to the Geocoding API
-          // fetch(
-          //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`
-          // )
-          //   .then((response) => response.json())
-          //   .then((data) => {
-          //     // Extract the address from the response
-          //     const address = data.results[0].formatted_address;
-          //     console.log(address); // Output the address
-          //     setStep(step + 1);
-          //   })
-          //   .catch((error) => {
-          //     console.error("Error occurred during geocoding request:", error);
-          //   });
         },
         (error) => {
           toast.error("Location access denied or an error occurred");
@@ -108,13 +107,33 @@ export default function SignUp() {
     if (step === 5) {
       if (email.length > 4 && password.length > 4) {
         try {
+          console.log("img jaa raha hai", selectedPhoto);
           // Send a request to create the user on the server
+          const formData = new FormData();
+          formData.append('userName', userName);
+          formData.append('email', email);
+          formData.append('password', password);
+          formData.append('userProfession', userProfession);
+          formData.append('usergender', usergender);
+          formData.append('userlocation', JSON.stringify(userlocation));
+          
+          if (selectedPhoto) {
+            formData.append("file", selectedPhoto);
+          }
+          // Iterate through the FormData entries and log each key-value pair
+          for (const pair of formData.entries()) {
+            console.log("haha", pair[0], pair[1]);
+          }
+
+          // Now you can log the FormData object itself
+          console.log("form data:", formData);
           const userCreatedResponse = await axios.post(
             "http://localhost:8080/createuser",
+            formData,
             {
-              userName, // You may want to include a username property here as well
-              email,
-              password,
+              headers: {
+                "Content-Type": "multipart/form-data", // Set the correct content type for file upload
+              },
             }
           );
 
@@ -332,20 +351,20 @@ export default function SignUp() {
                 </p>
                 <div
                   className={`mt-5 px-20 py-3 text-white rounded-full sm:mt-10 hover:cursor-pointer ${
-                    usergender === "Female" ? "bg-blue-600" : "bg-yellow-600"
+                    usergender === "Male" ? "bg-blue-600" : "bg-yellow-600"
                   }`}
                   onClick={() => {
-                    setUserGender("Female");
+                    setUserGender("Male");
                   }}
                 >
                   Male
                 </div>
                 <div
                   className={`mt-5 px-20 py-3 text-white rounded-full hover:cursor-pointer ${
-                    usergender === "Male" ? "bg-blue-600" : "bg-yellow-600"
+                    usergender === "Female" ? "bg-blue-600" : "bg-yellow-600"
                   }`}
                   onClick={() => {
-                    setUserGender("Male");
+                    setUserGender("Female");
                   }}
                 >
                   Female

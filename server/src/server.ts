@@ -1,8 +1,7 @@
 import express from "express";
-import dotenv from "dotenv";
 import logger from "./utils/logger";
 import routes from "./routes";
-// var cors = require('cors');
+
 const cors = require('cors');
 const cookieParser =require("cookie-parser");
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { admin,app } from "../config/firebaseconfig";
 import { getAuth } from "firebase/auth";
-
+import { addData } from "../utils/addData";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -13,9 +13,18 @@ import { QueryDocumentSnapshot, QuerySnapshot } from "firebase-admin/firestore";
 const db=admin.firestore();
 const auth = getAuth(app);
 
+// Define a custom Request type that includes the file property from Multer
+import multer, { Multer } from 'multer';
+
+interface CustomRequest extends Request {
+  file: Express.Multer.File;
+}
+
 export const checkServer = (req: Request, res: Response) => {
   return res.status(200).send("Techmate server running");
 };
+
+
 
 export const checkUserName = async (req: Request, res: Response) => {
   const username = req.body.userName; // Access the userName from req.body
@@ -41,10 +50,11 @@ export const checkUserName = async (req: Request, res: Response) => {
   }
 };
 
-export const createUser = (req: Request, res: Response) => {
+export const createUser = (req:Request, res: Response) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(email)
+  const country = req.body.userlocation.country;
+  console.log(req.body)
   createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       // User account created successfully
@@ -53,6 +63,12 @@ export const createUser = (req: Request, res: Response) => {
       // // Send email verification
       try{
           await sendEmailVerification(user);
+          try {
+            await addData(req, res); // Call addData here            
+          } catch (error) {
+            console.log("error adding data to firebase")
+            res.send("error adding data to firebase")
+          }
           console.log("Verification email sent.");
           return res.status(200).send("User Created");
 
@@ -68,7 +84,11 @@ export const createUser = (req: Request, res: Response) => {
       return res.status(500).send("Error creating user");
     });
 };
+
 export const signinUser = (req: Request, res: Response) => {
+  console.log('Selected photo:');
+  console.log(req.body)
+
     const email = req.body.email;
     const password = req.body.password;
     console.log(email)

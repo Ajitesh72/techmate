@@ -12,6 +12,7 @@ const serviceAccountkey_json_1 = __importDefault(require("./serviceAccountkey.js
 exports.admin.initializeApp({
     credential: exports.admin.credential.cert(serviceAccountkey_json_1.default),
     // databaseURL: "YOUR DATABASE URL"
+    storageBucket: "gs://techmate-ts.appspot.com"
 });
 const firebaseConfig = {
     apiKey: process.env.API_KEY,
@@ -26,5 +27,4 @@ const firebaseConfig = {
 exports.app = (0, app_1.initializeApp)(firebaseConfig);
 // export const db = getFirestore(app);
 // export const auth = getAuth(app);
-console.log(exports.admin);
 module.exports = { admin: exports.admin, app: exports.app };

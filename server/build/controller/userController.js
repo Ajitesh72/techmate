@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const auth_1 = require("firebase/auth");
+const addData_1 = require("../utils/addData");
 const auth_2 = require("firebase/auth");
 const db = firebaseconfig_1.admin.firestore();
 const auth = (0, auth_1.getAuth)(firebaseconfig_1.app);
@@ -46,7 +47,8 @@ exports.checkUserName = checkUserName;
 const createUser = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email);
+    const country = req.body.userlocation.country;
+    console.log(req.body);
     (0, auth_2.createUserWithEmailAndPassword)(auth, email, password)
         .then((userCredential) => __awaiter(void 0, void 0, void 0, function* () {
         // User account created successfully
@@ -55,6 +57,13 @@ const createUser = (req, res) => {
         // // Send email verification
         try {
             yield (0, auth_2.sendEmailVerification)(user);
+            try {
+                yield (0, addData_1.addData)(req, res); // Call addData here            
+            }
+            catch (error) {
+                console.log("error adding data to firebase");
+                res.send("error adding data to firebase");
+            }
             console.log("Verification email sent.");
             return res.status(200).send("User Created");
         }
@@ -72,6 +81,8 @@ const createUser = (req, res) => {
 };
 exports.createUser = createUser;
 const signinUser = (req, res) => {
+    console.log('Selected photo:');
+    console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);

@@ -10,6 +10,7 @@ import serviceAccount from "./serviceAccountkey.json";
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   // databaseURL: "YOUR DATABASE URL"
+  storageBucket: "gs://techmate-ts.appspot.com"
 });
 
 const firebaseConfig = {
@@ -27,5 +28,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 // export const db = getFirestore(app);
 // export const auth = getAuth(app);
-console.log(admin)
 module.exports= {admin,app};
