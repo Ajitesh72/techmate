@@ -128,7 +128,7 @@ export default function Home() {
           Our <span className="font-bold text-blue-400 underline">User's</span>{" "}
           love us
         </p>
-        <div className="sm:flex justify-center items-center flex-wrap lg:flex-nowrap bg-gray-900 text-white mx-5 sm:mx-20 ">
+        <div className="sm:flex justify-center items-center flex-wrap lg:flex-nowrap bg-gray-900 text-white sm:mx-20 ">
           {userReviews.slice(0, 3).map((review) => (
             <div
               key={review.id}
