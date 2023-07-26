@@ -5,9 +5,6 @@ import toast from "react-hot-toast";
 import logo from "../assets/logo.svg";
 import map from "../assets/animated_map.gif";
 
-// 
-
-
 console.log("process.env.apiUrl")
 export default function SignUp() {
   type LocationData = {
@@ -79,7 +76,8 @@ export default function SignUp() {
           setStep(step + 1);
           // Replace 'YOUR_API_KEY' with your actual API key from LocationIQ
           // https://my.locationiq.com/dashboard/?firstLogin=1
-          const apiKey = process.env.apiKey;
+          // const apiKey = process.env.apiKey;
+          const apiKey = "pk.41784fe0e1111e9b2053fc5683e5a894";
           const apiUrl = `https://eu1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${latitude}&lon=${longitude}&format=json`
           // Fetch the location details using the LocationIQ API
           fetch(apiUrl)

@@ -13,36 +13,57 @@ exports.addData = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const db = firebaseconfig_1.admin.firestore();
 const bucket = firebaseconfig_1.admin.storage().bucket();
-const addData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const addData = (uid, req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.userName;
     const email = req.body.email;
     const gender = req.body.usergender;
     const profession = req.body.userProfession;
     const userlocation = JSON.parse(req.body.userlocation); // Convert JSON string to an object
     const { town, suburb, state, country } = userlocation; // Destructure the properties
-    console.log(town);
     const selectedPhoto = req.file;
     if (!selectedPhoto) {
         return res.status(400).send('No photo selected.');
     }
     try {
-        const userres = yield db.collection("user").add({
-            username,
+        // const userres = await db.collection("user").doc(uid).set({
+        //   username,
+        //   email,
+        //   gender,
+        //   profession,
+        //   // location: {
+        //   //   town,
+        //   //   suburb,
+        //   //   state,
+        //   //   country,
+        //   // },
+        //    // Only add location data if they are defined
+        //    ...(town && { location: { town } }),
+        //    ...(suburb && { location: { suburb } }),
+        //    ...(state && { location: { state } }),
+        //    ...(country && { location: { country } }),
+        // });
+        const locationData = {};
+        if (town)
+            locationData["town"] = town;
+        if (suburb)
+            locationData["suburb"] = suburb;
+        if (state)
+            locationData["state"] = state;
+        if (country)
+            locationData["country"] = country;
+        const userData = Object.assign({ username,
             email,
             gender,
-            profession,
-            "location": {
-                town, suburb, state, country
-            },
-        });
-        const usernameres = yield db.collection("usernames").add({
+            profession }, (Object.keys(locationData).length > 0 && { location: locationData }));
+        const userres = yield db.collection("user").doc(uid).set(userData, { merge: true });
+        const usernameres = yield db.collection("usernames").doc(uid).set({
             username,
         });
         console.log("User Added document with ID: ", userres.id);
         console.log("Username added with ID: ", usernameres.id);
         // File upload to Firebase Storage
         // const bucketFileName = `user_photos/${selectedPhoto.originalname}`;
-        const bucketFileName = `${username}`;
+        const bucketFileName = `${uid}`;
         const bucketFile = bucket.file(bucketFileName);
         yield bucketFile.save(selectedPhoto.buffer, {
             metadata: {

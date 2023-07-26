@@ -7,14 +7,17 @@ import { Request, Response } from "express";
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
-export const addData = async (req:Request, res: Response) => {
+interface LocationData {
+  [key: string]: string;
+}
+
+export const addData = async (uid:string,req:Request, res: Response) => {
   const username = req.body.userName;
   const email = req.body.email;
   const gender = req.body.usergender;
   const profession = req.body.userProfession;
   const userlocation = JSON.parse(req.body.userlocation); // Convert JSON string to an object
   const { town, suburb, state, country } = userlocation; // Destructure the properties
-  console.log(town)
   const selectedPhoto = req.file;
 
 
@@ -22,23 +25,47 @@ export const addData = async (req:Request, res: Response) => {
     return res.status(400).send('No photo selected.');
   }
   try {
-    const userres = await db.collection("user").add({
+    // const userres = await db.collection("user").doc(uid).set({
+    //   username,
+    //   email,
+    //   gender,
+    //   profession,
+    //   // location: {
+    //   //   town,
+    //   //   suburb,
+    //   //   state,
+    //   //   country,
+    //   // },
+    //    // Only add location data if they are defined
+    //    ...(town && { location: { town } }),
+    //    ...(suburb && { location: { suburb } }),
+    //    ...(state && { location: { state } }),
+    //    ...(country && { location: { country } }),
+    // });
+    const locationData: LocationData = {};
+    if (town) locationData["town"] = town;
+    if (suburb) locationData["suburb"] = suburb;
+    if (state) locationData["state"] = state;
+    if (country) locationData["country"] = country;
+
+    const userData = {
       username,
       email,
       gender,
       profession,
-      "location":{
-        town,suburb,state,country
-      },
-    });
-    const usernameres = await db.collection("usernames").add({
+      ...(Object.keys(locationData).length > 0 && { location: locationData }),
+    };
+
+    const userres = await db.collection("user").doc(uid).set(userData, { merge: true });
+
+    const usernameres = await db.collection("usernames").doc(uid).set({
       username,
     });
     console.log("User Added document with ID: ", userres.id);
     console.log("Username added with ID: ", usernameres.id);
         // File upload to Firebase Storage
         // const bucketFileName = `user_photos/${selectedPhoto.originalname}`;
-        const bucketFileName = `${username}`;
+        const bucketFileName = `${uid}`;
         const bucketFile = bucket.file(bucketFileName);
         await bucketFile.save(selectedPhoto.buffer, {
           metadata: {

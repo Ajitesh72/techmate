@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const routes_1 = __importDefault(require("./routes"));
-// var cors = require('cors');
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 require('dotenv').config();

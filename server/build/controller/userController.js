@@ -9,13 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
+exports.verify = exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const auth_1 = require("firebase/auth");
 const addData_1 = require("../utils/addData");
 const auth_2 = require("firebase/auth");
 const db = firebaseconfig_1.admin.firestore();
 const auth = (0, auth_1.getAuth)(firebaseconfig_1.app);
+const auth_admin = firebaseconfig_1.admin.auth();
 const checkServer = (req, res) => {
     return res.status(200).send("Techmate server running");
 };
@@ -24,7 +25,7 @@ const checkUserName = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const username = req.body.userName; // Access the userName from req.body
     console.log(username);
     try {
-        let query = db.collection('usernames').where('username', '==', username);
+        let query = db.collection("usernames").where("username", "==", username);
         const querySnapshot = yield query.get();
         // Check if the querySnapshot is empty
         if (querySnapshot.empty) {
@@ -53,12 +54,13 @@ const createUser = (req, res) => {
         .then((userCredential) => __awaiter(void 0, void 0, void 0, function* () {
         // User account created successfully
         const user = userCredential.user;
-        console.log("User created:", user.uid);
+        const uid = user.uid; // Retrieve the UID
+        console.log("User created:", uid);
         // // Send email verification
         try {
             yield (0, auth_2.sendEmailVerification)(user);
             try {
-                yield (0, addData_1.addData)(req, res); // Call addData here            
+                yield (0, addData_1.addData)(uid, req, res); // Call addData here
             }
             catch (error) {
                 console.log("error adding data to firebase");
@@ -81,24 +83,32 @@ const createUser = (req, res) => {
 };
 exports.createUser = createUser;
 const signinUser = (req, res) => {
-    console.log('Selected photo:');
-    console.log(req.body);
+    console.log("Selected photo:");
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);
-    var userId;
+    //  var userId: string;
     (0, auth_2.signInWithEmailAndPassword)(auth, email, password)
         .then((userCredential) => {
         const user = userCredential.user;
         // Check if email is verified
         if (user.emailVerified) {
-            user.getIdToken(true)
-                .then((id) => {
-                return res.status(200).json({ message: "User signed in successfully", "token": id });
+            user.getIdToken(true).then((id) => {
+                res.cookie(`token`, id, {
+                    // expires works the same as the maxAge
+                    secure: true,
+                    httpOnly: true,
+                    sameSite: 'none'
+                });
+                res.send({ message: "User signed in successfully" });
+                return res;
+                // return res.status(200).json({ message: "User signed in successfully","token":id});
             });
         }
         else {
-            return res.status(200).json({ message: "Please verify your email before proceeding." });
+            return res
+                .status(200)
+                .json({ message: "Please verify your email before proceeding." });
         }
     })
         .catch((error) => {
@@ -109,3 +119,23 @@ const signinUser = (req, res) => {
     });
 };
 exports.signinUser = signinUser;
+const verify = (req, res) => {
+    // Check if the "access_token" cookie is present
+    console.log(req.cookies['access_token']);
+    const accessToken = req.cookies.access_token;
+    console.log(accessToken);
+    const idToken = req.body.id;
+    auth_admin
+        .verifyIdToken(idToken)
+        .then((decodedToken) => {
+        const uid = decodedToken.uid;
+        console.log(uid);
+        return res.send("user found");
+        // ...
+    })
+        .catch((error) => {
+        // Handle error
+        return error;
+    });
+};
+exports.verify = verify;

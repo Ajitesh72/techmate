@@ -14,10 +14,16 @@ export default function SignIn() {
   const handleContinue = async() => {
     try {
       // Send a request to create the user on the server
-      const userCreatedResponse = await axios.post("http://localhost:8080/signuser", {
+      const userCreatedResponse = await axios.post(" http://127.0.0.1:8080/signuser", {
         email,
         password,
-      });
+      }, {headers: {
+        "Content-Type": "application/json"
+        },
+        withCredentials: true
+      }
+      );
+
       console.log(userCreatedResponse)
       if (userCreatedResponse.data.message === "User signed in successfully") {
         // User created successfully, now show the success message with a delay
