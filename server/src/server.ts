@@ -25,3 +25,5 @@ routes(app);
 app.listen(PORT, () => {
   logger.info(`server is up on port ${PORT}`);
 });
+
+export default app;

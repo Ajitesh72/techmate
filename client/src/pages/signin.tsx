@@ -30,7 +30,7 @@ export default function SignIn() {
         toast.success(userCreatedResponse.data.message);
 
         setTimeout(() => {
-          navigate("/Explore"); // Replace "/login" with the actual path to navigate to
+          navigate("/profile"); // Replace "/login" with the actual path to navigate to
         }, 1000);
       } else {
         toast.error(userCreatedResponse.data.message);

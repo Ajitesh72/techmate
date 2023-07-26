@@ -22,26 +22,9 @@ const addData = (uid, req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { town, suburb, state, country } = userlocation; // Destructure the properties
     const selectedPhoto = req.file;
     if (!selectedPhoto) {
-        return res.status(400).send('No photo selected.');
+        return res.status(400).send("No photo selected.");
     }
     try {
-        // const userres = await db.collection("user").doc(uid).set({
-        //   username,
-        //   email,
-        //   gender,
-        //   profession,
-        //   // location: {
-        //   //   town,
-        //   //   suburb,
-        //   //   state,
-        //   //   country,
-        //   // },
-        //    // Only add location data if they are defined
-        //    ...(town && { location: { town } }),
-        //    ...(suburb && { location: { suburb } }),
-        //    ...(state && { location: { state } }),
-        //    ...(country && { location: { country } }),
-        // });
         const locationData = {};
         if (town)
             locationData["town"] = town;
@@ -55,7 +38,10 @@ const addData = (uid, req, res) => __awaiter(void 0, void 0, void 0, function* (
             email,
             gender,
             profession }, (Object.keys(locationData).length > 0 && { location: locationData }));
-        const userres = yield db.collection("user").doc(uid).set(userData, { merge: true });
+        const userres = yield db
+            .collection("user")
+            .doc(uid)
+            .set(userData, { merge: true });
         const usernameres = yield db.collection("usernames").doc(uid).set({
             username,
         });

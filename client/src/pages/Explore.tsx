@@ -5,32 +5,12 @@ import Sidebar from "../components/sidebar";
 import PhoneMenu from "../components/phonemenu";
 import axios from "axios";
 export default function TechmateExplore() {
-
-  async function getData(){
-  
-//   const accessToken = document.cookie
-//   .split('; ')
-//   .find(cookie => cookie.startsWith('access_token='))
-//   ?.split('=')[1];
-
-// console.log(accessToken);
-
-// // Make the API call to the "/verify" route with the access-token in the request headers
-// axios.post('http://localhost:8080/verify', null, {
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// })
-//   .then((response) => {
-//     // Handle the response from the server
-//     console.log(response.data);
-//   })
-//   .catch((error) => {
-//     // Handle any errors
-//     console.error('Error fetching data:', error);
+ async function getData(){
+//   const userCreatedResponse = await axios.post("http://127.0.0.1:8080/getprofile", {}, {
+//     withCredentials: true
 //   });
+// console.log(userCreatedResponse)  
  }
-
   return (
     <div className="flex">
         <div className="hidden md:block">
@@ -42,7 +22,7 @@ export default function TechmateExplore() {
      <div className="px-32 py-16 h-screen w-screen md:bg-white">
             explore
             <div className="bg-black text-white h-10 w-30 text-center" onClick={getData}>
-              CLICK ME
+              GET PROFILES
             </div>
      </div>
     </div>

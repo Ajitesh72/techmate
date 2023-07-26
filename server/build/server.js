@@ -23,3 +23,4 @@ app.use(cors({
 app.listen(PORT, () => {
     logger_1.default.info(`server is up on port ${PORT}`);
 });
+exports.default = app;

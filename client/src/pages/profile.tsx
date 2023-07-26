@@ -1,10 +1,24 @@
-// import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState,useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 // import toast from "react-hot-toast";
 import Sidebar from "../components/sidebar";
 import PhoneMenu from "../components/phonemenu";
+import axios from "axios";
 export default function TechmateProfile() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userCreatedResponse = await axios.post("http://127.0.0.1:8080/getprofile", {}, {
+          withCredentials: true
+        });
+        console.log(userCreatedResponse);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
   return (
     <div className="flex">
         <div className="hidden md:block">
