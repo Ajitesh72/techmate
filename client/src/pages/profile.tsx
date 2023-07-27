@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import toast from "react-hot-toast";
 import Sidebar from "../components/sidebar";
 import PhoneMenu from "../components/phonemenu";
@@ -16,6 +16,8 @@ export default function TechmateProfile() {
   }
   const [userData, setUserData] = useState<UserDataItem[]>([]);
   const [userImage, setUserImage] = useState<string>("");
+
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +28,8 @@ export default function TechmateProfile() {
             withCredentials: true,
           }
         );
+        console.log(userCreatedResponse);
+        if (userCreatedResponse)
         setUserImage(userCreatedResponse.data.imageurl);
         setUserData(userCreatedResponse.data.user_data);
         console.log(userCreatedResponse);
@@ -44,16 +48,16 @@ export default function TechmateProfile() {
       <div className="bottom-0 border-t-2 border-DBDBDB fixed md:hidden">
         <PhoneMenu name="profile" />
       </div>
-      {userData && (
+      {userData  && (
         <div className="py-16 h-screen w-screen md:bg-white ml-5 mr-5">
           <div className="sm:flex items-center justify-center">
             <div className="sm:py-10 flex justify-center">
               <img src={userImage} alt="" className="rounded-full h-44 w-44" />
             </div>
-            <div className="flex-col justify-center items-center sm:flex-block ml-0 sm:ml-20">
-              <div className="flex  mt-5 text-3xl">
+            <div className="sm:ml-20">
+              <div className="flex  mt-10 sm:mt-5 text-3xl">
                 <p className="text-gray-600">{userData.username}</p>
-                <div className="flex items-center justify-center rounded-xl ml-10 text-xl  bg-black text-white hover:bg-blue-700 cursor-pointer w-40 smd:w-20  md:w-60 md:h-10 ">
+                <div className="flex items-center justify-center rounded-xl ml-10 text-xl  bg-black text-white hover:bg-blue-700 cursor-pointer w-full  md:w-60 md:h-10 ">
                   <p>Edit Profile</p>
                 </div>
               </div>
@@ -90,6 +94,12 @@ export default function TechmateProfile() {
             </div>
           </div>
           <hr />
+          <div className="flex justify-center items-center py-40 text-xl  ">
+            <div className="flex justify-center items-center rounded-full h-10 w-80  bg-blue-600 text-white cursor-pointer" onClick={()=>{navigate("/post")}}>
+            <p>+ Start with a new post</p>
+            </div>
+          </div>
+
         </div>
       )}
     </div>

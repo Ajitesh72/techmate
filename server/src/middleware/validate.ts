@@ -39,6 +39,7 @@ export const validateToken = (
     })
     .catch((error: any) => {
       // Handle error
+      console.log(error)
       return res.status(401).json({ error: "Unauthorized: Invalid JWT" });
     });
 };

@@ -26,6 +26,7 @@ const validateToken = (req, res, next) => {
     })
         .catch((error) => {
         // Handle error
+        console.log(error);
         return res.status(401).json({ error: "Unauthorized: Invalid JWT" });
     });
 };

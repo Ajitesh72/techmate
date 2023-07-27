@@ -5,6 +5,7 @@ import SignUp from "./pages/signup";
 import SignIn from "./pages/signin";
 import TechmateExplore from "./pages/Explore";
 import TechmateProfile from "./pages/profile";
+import TechmatePost from "./pages/post";
 import { Toaster } from "react-hot-toast";
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<SignIn/>}/>
         <Route path="/explore" element={<TechmateExplore/>}/>
         <Route path="/profile" element={<TechmateProfile/>}/>
+        <Route path="/post" element={<TechmatePost/>}/>
         <Route path="*" element={<h1>404.Page not found</h1>}/>
       </Routes>
     </Router>

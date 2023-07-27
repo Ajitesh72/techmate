@@ -98,7 +98,8 @@ export const signinUser = (req: Request, res: Response) => {
             secure: true,
             httpOnly: true,
             sameSite: 'none'
-        });          res.send({ message: "User signed in successfully"})
+        });          
+        res.send({ message: "User signed in successfully"})
           return res
 
           // return res.status(200).json({ message: "User signed in successfully","token":id});
