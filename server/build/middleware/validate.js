@@ -10,6 +10,7 @@ const validateToken = (req, res, next) => {
     console.log("valid hu");
     const accessToken = req.cookies.token;
     if (!accessToken) {
+        console.log("hii");
         return res.status(401).json({ error: "Unauthorized: Missing JWT" });
     }
     auth_admin
@@ -27,7 +28,5 @@ const validateToken = (req, res, next) => {
         // Handle error
         return res.status(401).json({ error: "Unauthorized: Invalid JWT" });
     });
-    console.log("validation time");
-    // Call next() to proceed to the next middleware or route handler
 };
 exports.validateToken = validateToken;

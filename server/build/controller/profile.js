@@ -24,7 +24,23 @@ const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     // const uid=req.body.uid;
     const uid = req.uid; // Use 'as any' to bypass TypeScript error
     console.log(uid);
-    console.log("profile function here");
-    res.send("profile data found");
+    const docRef = db.collection('user').doc(uid);
+    docRef.get()
+        .then((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            const imageUrl = `https://firebasestorage.googleapis.com/v0/b/techmate-ts.appspot.com/o/${encodeURIComponent(uid)}?alt=media`;
+            console.log('img url:', imageUrl);
+            console.log('Document data:', data);
+            res.send({ "user_data": data, "imageurl": imageUrl });
+        }
+        else {
+            console.log('Document does not exist');
+        }
+    })
+        .catch((error) => {
+        console.log('Error getting document:', error);
+    });
+    //  res.send("profile data found")
 });
 exports.getProfile = getProfile;

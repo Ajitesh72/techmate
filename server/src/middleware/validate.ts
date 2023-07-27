@@ -22,11 +22,12 @@ export const validateToken = (
 
   const accessToken = req.cookies.token;
   if (!accessToken) {
+    console.log("hii")
     return res.status(401).json({ error: "Unauthorized: Missing JWT" });
   }
   auth_admin
-    .verifyIdToken(accessToken)
-    .then((decodedToken: { uid: any }) => {
+  .verifyIdToken(accessToken)
+  .then((decodedToken: { uid: any }) => {
       const uid = decodedToken.uid;
       console.log("uid found");
       console.log(uid);
@@ -40,8 +41,4 @@ export const validateToken = (
       // Handle error
       return res.status(401).json({ error: "Unauthorized: Invalid JWT" });
     });
-
-  console.log("validation time");
-
-  // Call next() to proceed to the next middleware or route handler
 };
