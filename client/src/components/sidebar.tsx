@@ -55,20 +55,19 @@ export default function Sidebar({name}:NameProps) {
             <path d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7 .1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4zM225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4C112 375.4 162.6 416 225.7 416z" />
           </svg>
 
-          <span>Date</span>
+          <span>Explore</span>
         </div>
         {/* 2nd option */}
-        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div onClick={() => navigate("/events")} className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
-            // fill="black"
             viewBox="0 0 512 512"
             id="Events"
           >
             <path d="M128 32h32c17.7 0 32 14.3 32 32V96H96V64c0-17.7 14.3-32 32-32zm64 96V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V388.9c0-34.6 9.4-68.6 27.2-98.3C40.9 267.8 49.7 242.4 53 216L60.5 156c2-16 15.6-28 31.8-28H192zm227.8 0c16.1 0 29.8 12 31.8 28L459 216c3.3 26.4 12.1 51.8 25.8 74.6c17.8 29.7 27.2 63.7 27.2 98.3V448c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V128h99.8zM320 64c0-17.7 14.3-32 32-32h32c17.7 0 32 14.3 32 32V96H320V64zm-32 64V288H224V128h64z" />
           </svg>
-          <span>Explore</span>
+          <span>Events</span>
         </div>
         {/* 3rd option */}
         <div onClick={() => navigate("/post")} className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
