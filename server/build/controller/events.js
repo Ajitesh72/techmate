@@ -9,30 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfile = void 0;
+exports.eventsPage = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const auth_1 = require("firebase/auth");
 const db = firebaseconfig_1.admin.firestore();
 const auth = (0, auth_1.getAuth)(firebaseconfig_1.app);
 const auth_admin = firebaseconfig_1.admin.auth();
 const bucket = firebaseconfig_1.admin.storage().bucket();
-const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const eventsPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const uid = req.uid; // Use 'as any' to bypass TypeScript error
-    const docRef = db.collection('user').doc(uid);
-    docRef.get()
-        .then((doc) => {
-        if (doc.exists) {
-            const data = doc.data();
-            const imageUrl = `https://firebasestorage.googleapis.com/v0/b/techmate-ts.appspot.com/o/${encodeURIComponent(uid)}?alt=media`;
-            res.send({ "user_data": data, "imageurl": imageUrl });
-        }
-        else {
-            console.log('Document does not exist');
-        }
-    })
-        .catch((error) => {
-        console.log('Error getting document:', error);
-    });
-    //  res.send("profile data found")
+    try {
+        const snapshot = yield db.collection("user").get();
+        const usersData = [];
+        let userData;
+        snapshot.forEach((doc) => {
+            // console.log(doc.data())
+            userData = {
+                username: doc.data().username,
+                chat: doc.data().post,
+            };
+            usersData.push(userData);
+        });
+        console.log(usersData);
+        res.json(usersData);
+    }
+    catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Failed to fetch data" });
+    }
 });
-exports.getProfile = getProfile;
+exports.eventsPage = eventsPage;

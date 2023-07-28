@@ -101,7 +101,6 @@ export const signinUser = (req: Request, res: Response) => {
         });          
         res.send({ message: "User signed in successfully"})
           return res
-
           // return res.status(200).json({ message: "User signed in successfully","token":id});
         });
       } else {
