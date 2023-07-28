@@ -118,23 +118,13 @@ export const signinUser = (req: Request, res: Response) => {
     });
 };
 
-export const verify = (req: Request, res: Response) => {
+export const logout = (req: Request, res: Response) => {
   // Check if the "access_token" cookie is present
-  console.log(req.cookies['access_token'])
-
-  const accessToken = req.cookies.access_token;
-  console.log(accessToken)
-  const idToken = req.body.id;
-  auth_admin
-    .verifyIdToken(idToken)
-    .then((decodedToken: { uid: any }) => {
-      const uid = decodedToken.uid;
-      console.log(uid);
-      return res.send("user found");
-      // ...
-    })
-    .catch((error: any) => {
-      // Handle error
-      return error;
-    });
+  if(req.cookies.token){
+    res.clearCookie("token");
+  res.status(200).send("Cookie cleared successfully");
+  }
+  else{
+    res.status(200).send("Cookie already cleared")
+  }
 };

@@ -19,7 +19,7 @@ export default function TechmateExplore() {
         <div className="bottom-0 border-t-2 border-DBDBDB fixed md:hidden">
             <PhoneMenu name="Explore"/>
         </div>
-     <div className="px-32 py-16 h-screen w-screen md:bg-white">
+     <div className="px-32 py-16 h-screen w-screen md:bg-white md:ml-72">
             explore
             <div className="bg-black text-white h-10 w-30 text-center" onClick={getData}>
               GET PROFILES

@@ -42,7 +42,7 @@ export default function PhoneMenu({name}:NameProps) {
         </svg>
       </div>
       {/* 3rd */}
-      <div className="">
+      <div onClick={() => navigate("/post")} className="">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="2em"

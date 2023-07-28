@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verify = exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
+exports.logout = exports.signinUser = exports.createUser = exports.checkUserName = exports.checkServer = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const auth_1 = require("firebase/auth");
 const addData_1 = require("../utils/addData");
@@ -119,23 +119,14 @@ const signinUser = (req, res) => {
     });
 };
 exports.signinUser = signinUser;
-const verify = (req, res) => {
+const logout = (req, res) => {
     // Check if the "access_token" cookie is present
-    console.log(req.cookies['access_token']);
-    const accessToken = req.cookies.access_token;
-    console.log(accessToken);
-    const idToken = req.body.id;
-    auth_admin
-        .verifyIdToken(idToken)
-        .then((decodedToken) => {
-        const uid = decodedToken.uid;
-        console.log(uid);
-        return res.send("user found");
-        // ...
-    })
-        .catch((error) => {
-        // Handle error
-        return error;
-    });
+    if (req.cookies.token) {
+        res.clearCookie("token");
+        res.status(200).send("Cookie cleared successfully");
+    }
+    else {
+        res.status(200).send("Cookie already cleared");
+    }
 };
-exports.verify = verify;
+exports.logout = logout;

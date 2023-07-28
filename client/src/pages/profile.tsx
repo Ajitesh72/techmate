@@ -4,15 +4,21 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import PhoneMenu from "../components/phonemenu";
 import axios from "axios";
+import logo from "../assets/logo_white_bgd.svg";
 
 export default function TechmateProfile() {
+  interface PostData {
+    postContent: string;
+    postSubject: string;
+  }
   interface UserDataItem {
     username: string;
     email: string;
     profession: string;
     gender: string;
     location: { [key: string]: string }; // Assuming location is a key-value pair with both keys and values being strings
-    // Add other properties as needed
+    post: PostData[]; // An array of PostData objects
+    postnum:number
   }
   const [userData, setUserData] = useState<UserDataItem[]>([]);
   const [userImage, setUserImage] = useState<string>("");
@@ -41,15 +47,17 @@ export default function TechmateProfile() {
     fetchData();
   }, []);
   return (
-    <div className="flex">
-      <div className="hidden md:block">
+    <div className="flex ">
+      <div className="hidden md:block ">
         <Sidebar name="profile" />
       </div>
       <div className="bottom-0 border-t-2 border-DBDBDB fixed md:hidden">
         <PhoneMenu name="profile" />
       </div>
       {userData  && (
-        <div className="py-16 h-screen w-screen md:bg-white ml-5 mr-5">
+        
+        <div className="py-4 md:py-16 h-screen w-screen md:bg-white ml-2 mr-5 md:ml-72">
+          <img src={logo} alt="" className="md:hidden mb-8"/>
           <div className="sm:flex items-center justify-center">
             <div className="sm:py-10 flex justify-center">
               <img src={userImage} alt="" className="rounded-full h-44 w-44" />
@@ -64,7 +72,7 @@ export default function TechmateProfile() {
               <div className="flex mt-5 gap-5">
                 <p>76 Connects</p>
                 <p>23 Requests</p>
-                <p>76 Post</p>
+                {userData && userData.post &&<p>{userData.post.length} Post</p>}
               </div>
               <div className="mt-5">
                 <h1 className="text-xl underline">About me:</h1>
@@ -93,7 +101,7 @@ export default function TechmateProfile() {
               </div>
             </div>
           </div>
-          <hr />
+          <hr className="ml-4"/>
           <div className="flex justify-center items-center py-40 text-xl  ">
             <div className="flex justify-center items-center rounded-full h-10 w-80  bg-blue-600 text-white cursor-pointer" onClick={()=>{navigate("/post")}}>
             <p>+ Start with a new post</p>

@@ -1,9 +1,9 @@
 import { Express } from "express";
-import { checkUserName,checkServer,createUser,signinUser,verify } from "./controller/userController";
+import { checkUserName,checkServer,createUser,signinUser,logout } from "./controller/userController";
 import { validateToken } from "./middleware/validate";
 import { getProfile } from "./controller/profile";
+import { addPost } from "./controller/post";
 
-import { RequestHandlerParams } from 'express-serve-static-core';
 
 const multer = require('multer'); // Middleware for handling multipart/form-data (file uploads)
 const upload = multer();
@@ -14,4 +14,6 @@ export default function routes(app: Express) {
   app.post("/checkuserName", checkUserName);
   app.post("/signuser", signinUser);
   app.post("/getprofile", validateToken, getProfile);
+  app.post("/post", validateToken, addPost);
+  app.post("/logout", validateToken, logout);
 }

@@ -16,7 +16,7 @@ app.use(express_1.default.json());
 app.use(cookieParser());
 const PORT = process.env.PORT || 8080;
 app.use(cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5173", "https://techmate.vercel.app/"],
+    origin: ["http://localhost:3000", "http://127.0.0.1:5173", "https://techmate.vercel.app"],
     credentials: true,
 }));
 (0, routes_1.default)(app);
