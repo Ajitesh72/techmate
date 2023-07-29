@@ -113,6 +113,7 @@ export default function TechmateEvents() {
       <div className="hidden md:block">
         <Sidebar name="Events" />
       </div>
+      
       <div className="bottom-0 border-t-2 border-DBDBDB fixed md:hidden">
         <PhoneMenu name="Events" />
       </div>

@@ -3,9 +3,9 @@ import './App.css'
 import Home from "./pages/home";
 import SignUp from "./pages/signup";
 import SignIn from "./pages/signin";
-import TechmateExplore from "./pages/Explore";
 import TechmateProfile from "./pages/profile";
 import TechmatePost from "./pages/post";
+import TechmateExplore from "./pages/explore";
 import TechmateEvents from "./pages/events";
 import { Toaster } from "react-hot-toast";
 

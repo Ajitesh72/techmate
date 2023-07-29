@@ -155,7 +155,7 @@ export default function TechmatePost() {
                       <div className="bg-blue-100 rounded-xl ">
                         <div className="mx-2 my-4 text-xl px-2">
                           <h1 className="text-2xl text-bold pt-4">Title: {Post.postSubject}</h1>
-                          <h1 className="text-md ">{Post.postContent}</h1>
+                          <h1 className="text-sm ">{Post.postContent}</h1>
                           <div className="flex justify-end ">
                             <h1 className="my-2 mx-2 text-xl text-black">~{userData.username}</h1>
                           </div>
