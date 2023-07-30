@@ -26,6 +26,7 @@ export default function TechmateExplore() {
     setBatchProfile(userCreatedResponse.data);
   }
 
+  
   const fetchData = async () => {
     try {
       const userCreatedResponse = await axios.post(
