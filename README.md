@@ -25,7 +25,7 @@ Techmate is an interactive mobile first web Application that helps to connect th
 
 https://github.com/Ajitesh72/techmate/assets/95878363/88bee67f-58df-4ec6-ac0c-8a718672587e
 
-
+To view a detailed video-https://www.youtube.com/watch?v=06F4EC4F5ws
 
 ## Features
 
@@ -48,6 +48,7 @@ https://github.com/Ajitesh72/techmate/assets/95878363/88bee67f-58df-4ec6-ac0c-8a
 - Realtime Events Updation.
 - Ability to connect Employees to potential Employers based on location.
 - Easy to use Interface to stay upto date with current Technology and Tech events.
+- Email Verification using firebase client-sdk to allow only genuine users.
 - Realtime Chatting with potential employers[Currently working on it].
 - Premium Subscription using Stripe.js which unlocks the feature to view skipped profiles and chat with potential Employers.
 
