@@ -19,9 +19,13 @@
 Techmate is an interactive mobile first web Application that helps to connect the job seeker with potential Employers and to stay upto date with current tech events. The web-app leverages the high performant capabilities of the [Vite]([https://svelte.dev/](https://vitejs.dev/)) to provide a smooth and responsive experience. The project is implemented in a [TypeScript](https://www.typescriptlang.org/) environment and hosted on [Vercel](https://vercel.com).
 
 
-**Link:** [https://clumsy-keys.vercel.app/](https://techmate.vercel.app/)
+**Link:** [(https://techmate.vercel.app/)]
+**Note** [The backend is not hosted,so you would not be able to use the application live right now]
 
-video aayega
+
+https://github.com/Ajitesh72/techmate/assets/95878363/88bee67f-58df-4ec6-ac0c-8a718672587e
+
+
 
 ## Features
 
@@ -36,7 +40,9 @@ video aayega
 - [my.locationiq](https://locationiq.com/docs)for generation user current location
 
 (Soon to be added 😊)
-- [Redis as Caching Database](https://supabase.com/docs/guides/auth), [Realtime Chating Feature](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps),- [StripeJS](https://stripe.com/docs/js) for payment processing for buying Premium.
+- [Redis as Caching Database](https://supabase.com/docs/guides/auth),
+- [Realtime Chating Feature],
+- [StripeJS](https://stripe.com/docs/js) for payment processing for buying Premium.
 
 ## Key Functionality
 - Realtime Events Updation.
@@ -65,7 +71,7 @@ my.locationiq_APIKEY =
 
 > Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your authentication provider accounts.
 
-1. Install run: `pnpm i`
+1. Install run: `npm i`
 2. Make a new `.env` file.
 3. Populate the `.env` file with the necessary environment variables.
 
