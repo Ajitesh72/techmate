@@ -9,7 +9,7 @@ export default function Home() {
     <div className="">
       <Homenavbar />
       <div className="flex justify-center items-center bg-blue-50">
-        <div className="mt-10 mb-40 mx-5 sm:mx-20 lg:mb-40 lg:mt-20">
+        <div className="mt-10 mb-10 sm:mb-40 mx-5 sm:mx-20 lg:mb-40 lg:mt-20">
           <p className="text-blue-700 ">#Explore_Your_Options</p>
           <div className="text-5xl mt-5 mb-5 font">
             Your{" "}
@@ -57,7 +57,7 @@ export default function Home() {
         </div>
       </div>
       {/* section2 */}
-      <div className="flex justify-centerpy-0 mx-5 sm:py-8 sm:mx-20">
+      <div className="flex justify-centerpy-0 mx-2 sm:py-8 sm:mx-20">
         <div className="max-w-5.5xl mx-4 mb-10 my-7 sm:mx-auto">
           <h1 className="mb-4 text-3xl font-medium leading-snug sm:text-4xl sm:leading-tight ">
             A Seamless{" "}
@@ -69,7 +69,7 @@ export default function Home() {
           </p>
           {/* Features */}
           <div className="flex flex-wrap items-center justify-center gap-20 mt-6 mb-6 sm:mt-10 sm:mb-9">
-            <div className="py-8 mb-4 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
+            <div className="py-8 mb-0 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
               <div className="flex items-center bg-black w-fit px-3 py-1.5 rounded-2xl">
                 <div className="bg-accent-blue-600 rounded-full h-1.5 w-1.5 "></div>
                 <span className="ml-2 text-xs font-light text-white">
@@ -83,7 +83,7 @@ export default function Home() {
                 messaging system.
               </p>
             </div>
-            <div className="py-8 mb-4 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
+            <div className="py-8 mb-0 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
               <div className="flex items-center bg-black w-fit px-3 py-1.5 rounded-2xl">
                 <div className="bg-accent-pink rounded-full h-1.5 w-1.5 "></div>
                 <span className="ml-2 text-xs font-light text-white">
@@ -97,7 +97,7 @@ export default function Home() {
                 secure online experience.
               </p>
             </div>
-            <div className="py-8 mb-4 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
+            <div className="py-8 mb-0 text-white rounded-lg bg-slate-800 sm:w-80 px-9">
               <div className="flex items-center bg-black w-fit px-3 py-1.5 rounded-2xl">
                 <div className="bg-accent-green rounded-full h-1.5 w-1.5 "></div>
                 <span className="ml-2 text-xs font-light text-white">
@@ -128,11 +128,11 @@ export default function Home() {
           Our <span className="font-bold text-blue-400 underline">User's</span>{" "}
           love us
         </p>
-        <div className="sm:flex justify-center items-center flex-wrap lg:flex-nowrap bg-gray-900 text-white sm:mx-20 ">
+        <div className="sm:flex justify-center items-center flex-wrap lg:flex-nowrap bg-gray-900 text-white sm:mx-20 mb-10">
           {userReviews.slice(0, 3).map((review) => (
             <div
               key={review.id}
-              className="bg-gray-800 p-4 rounded-lg my-10 mx-10"
+              className="bg-gray-800 p-4 rounded-lg my-10 mx-5 sm:mx-10"
             >
               <div className="flex items-center mb-4">
                 <img

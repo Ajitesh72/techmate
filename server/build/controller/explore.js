@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.firstBatch = void 0;
+exports.addConnection = exports.firstBatch = void 0;
 const firebaseconfig_1 = require("../config/firebaseconfig");
 const auth_1 = require("firebase/auth");
 const db = firebaseconfig_1.admin.firestore();
@@ -37,3 +37,33 @@ const firstBatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
 });
 exports.firstBatch = firstBatch;
+const addConnection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const uid = req.uid; // Use 'as any' to bypass TypeScript error
+    const follower_id = req.body.follower_id;
+    const follower_username = req.body.follower_username;
+    const usersCollectionRef = db.collection('user');
+    const userDocRef = usersCollectionRef.doc(follower_id);
+    try {
+        // Check if the document already exists
+        const userDocSnapshot = yield userDocRef.get();
+        if (!userDocSnapshot.exists) {
+            console.log("userdocument does not exist");
+        }
+        else {
+            // If the document exists, update the "followers" field by appending the new follower detail
+            yield userDocRef.update({
+                followers: firebaseconfig_1.admin.firestore.FieldValue.arrayUnion({
+                    id: uid,
+                    username: follower_username,
+                })
+            });
+        }
+        res.status(200).json({ message: "Follower added successfully!" });
+        console.log("Follower added successfully!");
+    }
+    catch (error) {
+        console.error('Error adding follower: ', error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+});
+exports.addConnection = addConnection;

@@ -153,7 +153,7 @@ export default function TechmatePost() {
                   {userData.post.map((Post) => (
                     <div>
                       <div className="bg-blue-100 rounded-xl ">
-                        <div className="mx-2 my-4 text-xl px-2">
+                        <div className="mx-2 my-4 px-2">
                           <h1 className="text-2xl text-bold pt-4">Title: {Post.postSubject}</h1>
                           <h1 className="text-sm ">{Post.postContent}</h1>
                           <div className="flex justify-end ">

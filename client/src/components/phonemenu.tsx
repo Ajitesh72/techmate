@@ -52,7 +52,7 @@ export default function PhoneMenu({name}:NameProps) {
         </svg>
       </div>
       {/* 4th */}
-      <div className="">
+      <div onClick={() => navigate("/chat")} className="">
       <svg
             xmlns="http://www.w3.org/2000/svg"
             height="2em"
@@ -62,7 +62,7 @@ export default function PhoneMenu({name}:NameProps) {
           </svg>
       </div>
       {/* 5th */}
-      <div className="">
+      <div onClick={() => navigate("/connects")} className="">
       <svg
             xmlns="http://www.w3.org/2000/svg"
             height="2em"

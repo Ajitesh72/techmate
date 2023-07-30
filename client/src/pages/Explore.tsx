@@ -55,7 +55,38 @@ export default function TechmateExplore() {
     if (num < batchProfile.length - 1) {
       setNum(num + 1);
     } else {
-      toast.info("You're all caught up");
+      toast.error("You're all caught up");
+    }
+  };
+  const handleConnection = async() => {
+    if (num <= batchProfile.length - 1) {
+      console.log(num)
+      try {
+        const userCreatedResponse = await axios.post(
+          "http://127.0.0.1:8080/addconnection",
+          { 
+             "follower_id":batchProfile[num].id,
+             "follower_username":userData.username
+            },
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(userCreatedResponse);
+        if (userCreatedResponse) {
+          console.log(userCreatedResponse);
+          toast.success("Connection Request Sent")
+          if(num!=batchProfile.length-1){
+            setNum(num + 1);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      // batchProfile[num].id
+      // batchProfile[num].username
+    } else {
+      toast.error("You're all caught up");
     }
   };
 
@@ -85,7 +116,7 @@ export default function TechmateExplore() {
                 </div>
                 <div
                   className="flex justify-center items-center text-md sm:text-lg   h-9 text-center bg-blue-700 text-white absolute bottom-0    mb-5 w-[45%] ml-2 rounded-xl cursor-pointer hover:bg-blue-600 "
-                  onClick={handleNextProfile}
+                  onClick={handleConnection}
                 >
                   Send Connection
                 </div>
@@ -148,10 +179,10 @@ export default function TechmateExplore() {
                 </div>
               )}
             </div>
-            <div className="hidden lg:block w-[90%] h-[75vh] mx-5 mb-80 mt-10 bg-violet-200 relative rounded-xl">
+            <div className="hidden lg:block w-[85%] h-[77vh] mx-5 mb-80 mt-10 bg-violet-200 relative rounded-xl">
               <div className="flex justify-center  w-full mt-10 ">
                 <div className="h-24 w-24 relative">
-                  <img src={userImage} alt="" className="rounded-full object-cover	" />
+                  <img src={userImage} alt="" className="rounded-full h-24 w-24" />
                   <span
                     className="absolute bottom-0 right-0 h-4 w-4 rounded-full bg-green-500 border-2 border-white"
                     title="Online"
@@ -196,7 +227,7 @@ export default function TechmateExplore() {
                         #dancing
                       </div>
                     </div>
-                    <div onClick={()=>navigate("/profile")} className="flex justify-center items-center w-full h-10 mt-5 bg-black hover:bg-slate-800 rounded-lg text-white cursor-pointer">
+                    <div onClick={()=>navigate("/profile")} className="flex justify-center items-center w-full h-12 text-xl mt-7 bg-black hover:bg-slate-800 rounded-lg text-white cursor-pointer">
                       View Profile
                     </div>
                   </div>

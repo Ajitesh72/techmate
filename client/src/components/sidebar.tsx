@@ -83,7 +83,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Pen</span>
         </div>
         {/* 4th option */}
-        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div onClick={() => navigate("/chat")} className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -96,7 +96,7 @@ export default function Sidebar({name}:NameProps) {
           <span>Chat</span>
         </div>
         {/* 5th option */}
-        <div className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
+        <div onClick={() => navigate("/connects")} className="flex items-center gap-10 text-3xl font-semibold my-2 py-2 px-8 rounded-3xl   hover:bg-violet-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"

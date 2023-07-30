@@ -153,16 +153,20 @@ export default function TechmateEvents() {
           <div className="my-2 mt-5 md:mx-20">
             <hr className="bg-black mx-10 md:mx-0" />
             <div className="mt-5 mx-2 md:mx-0">
-              <div className="flex text-xl font-bold  mx-2  mb-8 sm:mx-0 ">
+              <div className="flex-col text-xl font-bold  mx-2  mb-8 sm:mx-0 ">
+                <h1 className="font-normal text-2xl sm:text-3xl  bg-gradient-to-r from-blue-800 to-indigo-600  text-transparent bg-clip-text underline">Check what other's are up to:</h1>
+                <div className="flex">
                 Sort by: 
                 <p className="underline mx-2 cursor-pointer">Most Recent Posts</p>
+
+                </div>
               </div>
               {allPost && (
                 <>
-                  {allPost.map((data, index) => (
+                  {allPost.length && allPost.map((data, index) => (
                     <div key={index}>
                       <div>
-                        {data.chat.map((chatData, chatIndex) => (
+                        {data.chat && data.chat.map((chatData, chatIndex) => (
                           <div key={chatIndex}>
                             {/* Render chat data here */}
                             <div className="bg-blue-100 rounded-xl px-4 py-2">

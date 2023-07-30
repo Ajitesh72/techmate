@@ -54,21 +54,5 @@ const addPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.error('Error updating document:', error);
         res.send("document not updated");
     });
-    // docRef.get()
-    // .then((doc:any) => {
-    //   if (doc.exists) {
-    //     const data = doc.data();
-    //     const imageUrl = `https://firebasestorage.googleapis.com/v0/b/techmate-ts.appspot.com/o/${encodeURIComponent(uid)}?alt=media`;
-    //     console.log('img url:', imageUrl);
-    //     console.log('Document data:', data);
-    //     res.send({"user_data":data,"imageurl":imageUrl})
-    //   } else {
-    //     console.log('Document does not exist');
-    //   }
-    // })
-    // .catch((error:any) => {
-    //   console.log('Error getting document:', error);
-    // });   
-    //  res.send("profile data found")
 });
 exports.addPost = addPost;

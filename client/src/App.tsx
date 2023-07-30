@@ -7,6 +7,9 @@ import TechmateProfile from "./pages/profile";
 import TechmatePost from "./pages/post";
 import TechmateExplore from "./pages/explore";
 import TechmateEvents from "./pages/events";
+import TechmateChat from "./pages/chat";
+import TechmateConnect from "./pages/connect";
+
 import { Toaster } from "react-hot-toast";
 
 
@@ -24,6 +27,8 @@ function App() {
         <Route path="/profile" element={<TechmateProfile/>}/>
         <Route path="/post" element={<TechmatePost/>}/>
         <Route path="/events" element={<TechmateEvents/>}/>
+        <Route path="/chat" element={<TechmateChat/>}/>
+        <Route path="/connects" element={<TechmateConnect/>}/>
         <Route path="*" element={<h1>404.Page not found</h1>}/>
       </Routes>
     </Router>
