@@ -38,6 +38,7 @@ To view a detailed video-https://www.youtube.com/watch?v=06F4EC4F5ws
   - Icons from [Heroicons](https://heroicons.com) and [Google Icons](https://fonts.google.com/icons)
 - [Firebase-Admin SDK](https://github.com/firebase/firebase-admin-node) for the Backend Services.
 - [my.locationiq](https://locationiq.com/docs)for generation user current location
+- Flask is used as the server for hosting the deep learning algorithm(Post Summarization Model)
 
 (Soon to be added 😊)
 - [Redis as Caching Database](https://supabase.com/docs/guides/auth),
@@ -51,7 +52,7 @@ To view a detailed video-https://www.youtube.com/watch?v=06F4EC4F5ws
 - Email Verification using firebase client-sdk to allow only genuine users.
 - Realtime Chatting with potential employers[Currently working on it].
 - Premium Subscription using Stripe.js which unlocks the feature to view skipped profiles and chat with potential Employers.
-
+- Post/Events Summarization using transformers model from Hugging-Face
 
 ## Running locally
 
