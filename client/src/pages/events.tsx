@@ -6,6 +6,7 @@ import PhoneMenu from "../components/phonemenu";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import logo from "../assets/logo_white_bgd.svg";
+import load from "../assets/load.gif"
 
 export default function TechmateEvents() {
   interface PostData {
@@ -22,12 +23,23 @@ export default function TechmateEvents() {
     post: PostData[]; // An array of PostData objects
     // Add other properties as needed
   }
+
+  interface SummarizationState {
+    text: string;
+    summary: string;
+  }
+  
   const [userData, setUserData] = useState<UserDataItem[]>([]);
   const [userImage, setUserImage] = useState<string>("");
   const [newpost, setNewPost] = useState<string>("");
   const [newsubject, setNewSubject] = useState<string>("");
   const [allPost, setAllPost] = useState([]);
 
+  const [modal, setModal] = useState(false);
+  const [summarization, setSummarization] = useState<SummarizationState>({
+    text: '',
+    summary: '',
+  });
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
@@ -108,6 +120,29 @@ export default function TechmateEvents() {
       addPost();
     }
   };
+
+ 
+
+  function Textsummary(chatData) {
+    async function performSummarization() {
+      try {
+        setModal(true);
+        const response = await axios.post("http://localhost:8081/summarize", {
+          text: chatData.postContent,
+        });
+        console.log(response)
+        const summary = response.data.summary;
+        // Set the modal to be visible and update the summarization state
+        setSummarization({ text: chatData.postContent, summary });
+      } catch (error) {
+        console.error("Error summarizing text:", error);
+      }
+    }
+  
+    performSummarization();
+  }
+  
+
   return (
     <div className="flex">
       <div className="hidden md:block">
@@ -117,6 +152,33 @@ export default function TechmateEvents() {
       <div className="bottom-0 border-t-2 border-DBDBDB fixed md:hidden">
         <PhoneMenu name="Events" />
       </div>
+
+      
+      {modal && (
+  <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    <div className="bg-white rounded-lg shadow-lg p-6 w-screen mx-5 md:ml-96 md:mr-24">
+      <h2 className="text-xl font-semibold">POST SUMMARY</h2>
+      <div className="flex items-center justify-center "> {/* Centering container */}
+        {summarization.summary.length === 0 && <img src={load} alt=""/>}
+        {summarization.summary.length > 0 && <p className="text-sm md:text-xl">{summarization.summary}</p>}
+      </div>
+      <div className="mt-4 flex justify-end">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onClick={() => {
+            setModal(false);
+            setSummarization({ text: '', summary: '' });
+          }}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
       {userData && allPost && (
         <div className="mt-2 sm:mt-10  w-screen md:ml-72">
           <img src={logo} alt="" className="mt-1 mb-4 md:hidden" />
@@ -175,6 +237,8 @@ export default function TechmateEvents() {
                               <h1 className="text-md ">{chatData.postContent}</h1>
                               <div className="flex justify-end">
                                 <p className="text-xl underline hover:text-blue-600 cursor-pointer mb-2">~{data.username}</p></div>
+                              <div className="h-10 w-full my-2  rounded-full bg-black hover:bg-blue-600 cursor-pointer text-white flex justify-center items-center" onClick={()=>{Textsummary(chatData)}} > Show summary </div>
+                              {/* <div className="h-10 w-full my-2  rounded-full bg-black hover:bg-blue-600 cursor-pointer text-white flex justify-center items-center" onClick={()=>{ setModal(true);setSummarization({ text: chatData.postContent, summary: '' });}} > Show summary </div> */}
                             </div>
                               <hr className="my-4"/>
                           </div>
@@ -197,6 +261,7 @@ export default function TechmateEvents() {
           </div>
         </div>
       )}
+      
     </div>
   );
 }

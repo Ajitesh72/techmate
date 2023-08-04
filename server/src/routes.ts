@@ -9,6 +9,8 @@ import { addConnection } from "./controller/explore";
 
 const multer = require('multer'); // Middleware for handling multipart/form-data (file uploads)
 const upload = multer();
+
+
 export default function routes(app: Express) {
   app.get("/",checkServer );
   // checking if username is available or taken
