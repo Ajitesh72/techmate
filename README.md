@@ -1,11 +1,10 @@
-# techmate
+
 <a href="[https://clumsy-keys.vercel.app/](https://techmate.vercel.app/)">
     <h1>Techmate-A social Media Application for Engineers</h1>
 </a>
 <p >
   Techmate is a social media application to connect the potential job seeker with the organization and to stay up to date with latest events
 </p>
-<br/>
 
 ## Description
 
@@ -18,13 +17,6 @@ To view a detailed video-https://www.youtube.com/watch?v=06F4EC4F5ws
 
 ## Features
 
-- [Vite](https://vitejs.dev/) 
-- Vite 3.x and [Typescript](https://vercel.com/ai) for reliable and fast development
-- [Vercel Edge Adapter]() for Edge runtime compatibility
-- User Interface and Experience
-  - Design is built from scratch using [Figma](https://www.figma.com/)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Icons from [Heroicons](https://heroicons.com) and [Google Icons](https://fonts.google.com/icons)
 - [Firebase-Admin SDK](https://github.com/firebase/firebase-admin-node) for the Backend Services.
 - [my.locationiq](https://locationiq.com/docs)for generation user current location
 - Flask is used as the server for hosting the deep learning algorithm(Post Summarization Model)
