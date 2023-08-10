@@ -22,16 +22,36 @@ export default function TechmateConnect() {
           withCredentials: true,
         }
       );
-      console.log(userCreatedResponse);
       if (userCreatedResponse) {
         setUserImage(userCreatedResponse.data.imageurl);
         setUserData(userCreatedResponse.data.user_data);
-        console.log(userCreatedResponse);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  function acceptConnect(follower:unknown){
+    console.log(follower)
+    console.log("hii")
+    const acceptData = async () => {
+      try {
+        const userCreatedResponse = await axios.post(
+          "http://127.0.0.1:8080/acceptConnect",
+          {follower},
+          {
+            withCredentials: true,
+          }
+        );
+        if (userCreatedResponse) {
+          toast.success("Congratulations for a New Connection")
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    acceptData()
+  }
 
   useEffect(() => {
     fetchData();
@@ -68,7 +88,7 @@ export default function TechmateConnect() {
                           <p>{follower.username}</p>
                         </div>
                         <div className="flex w-full justify-end items-center">
-                          <div className="ml-1 sm:ml-5 mr-1 sm:mr-2 bg-blue-600 rounded-lg py-2 px-[6%] sm:px-[10%] cursor-pointer">
+                          <div className="ml-1 sm:ml-5 mr-1 sm:mr-2 bg-blue-600 rounded-lg py-2 px-[6%] sm:px-[10%] cursor-pointer" onClick={()=>{acceptConnect(follower)}} >
                             Accept
                           </div>
                           <div className="mr-1sm:mr-2 bg-black py-2 px-[6%] sm:px-[10%] cursor-pointer">

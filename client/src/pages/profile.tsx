@@ -70,9 +70,12 @@ export default function TechmateProfile() {
                 </div>
               </div>
               <div className="flex mt-5 gap-5">
-                <p>76 Connects</p>
-                <p>23 Requests</p>
+                {userData && userData.connects &&<p>{userData.connects.length} Connects</p>}
+                {userData && userData.followers &&<p>{userData.followers.length} Requests</p>}
                 {userData && userData.post &&<p>{userData.post.length} Post</p>}
+                {userData && !userData.connects &&<p>0 Connects</p>}
+                {userData && !userData.followers &&<p>0 Requests</p>}
+                {userData && !userData.post &&<p>0 Post</p>}
               </div>
               <div className="mt-5">
                 <h1 className="text-xl underline">About me:</h1>

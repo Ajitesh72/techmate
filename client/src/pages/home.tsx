@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import {useState} from "react"
 import Homenavbar from "../components/navbarHome";
 import logo from "../assets/home-bgd.svg";
 import userReviews from "../utils/reviews";
 
 export default function Home() {
   const navigate = useNavigate();
+
   return (
     <div className="">
       <Homenavbar />
@@ -27,9 +29,12 @@ export default function Home() {
             diam natoque faucibus. In libero magna ipsum nisl enim in. Start
             Shopping
           </div>
-          <div className="py-3.5 text-center text-white bg-black rounded-full md:block px-9 mb-10 hover:bg-blue-600 cursor-pointer" onClick={() => {
-                  navigate("/signUp");
-                }}>
+          <div
+            className="py-3.5 text-center text-white bg-black rounded-full md:block px-9 mb-10 hover:bg-blue-600 cursor-pointer"
+            onClick={() => {
+              navigate("/signUp");
+            }}
+          >
             Start Exploring
           </div>
           <div className="gap-5 flex-wrap sm:gap-20 flex ">
@@ -49,11 +54,7 @@ export default function Home() {
         </div>
         <div>
           {/* <img className="self-center h-70 lg:w-70 sm:hidden" src={logo} alt="" /> */}
-          <img
-            className="self-center hidden lg:block"
-            src={logo}
-            alt=""
-          />
+          <img className="self-center hidden lg:block" src={logo} alt="" />
         </div>
       </div>
       {/* section2 */}
@@ -178,12 +179,8 @@ export default function Home() {
                 Sign up to our newsletter.
               </h1>
               <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+              {/* Add the Google Website Translator widget */}
               <div className="relative w-full mt-3">
-                {/* <input
-                className="w-full px-4 py-3 text-white rounded outline-none bg-accent-blue-33"
-                type="text"
-                placeholder="Email Address"
-              /> */}
               </div>
               <button
                 className="px-20 py-2 text-white bg-black hover:bg-blue-600"
@@ -203,12 +200,13 @@ export default function Home() {
               Copyright © 2023 TechMate. All Rights Reserved.
             </p>
           </div>
+          
+
+
+
         </div>
         <div className="bg-slate-800 ">
-        <div className="bg-gradient-to-b from-blue-200 to-slate-800 width-screen h-4 rounded-t-3xl">
-</div>
-
-
+          <div className="bg-gradient-to-b from-blue-200 to-slate-800 width-screen h-4 rounded-t-3xl"></div>
         </div>
       </div>
     </div>

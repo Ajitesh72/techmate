@@ -13,9 +13,6 @@ def summarize():
     text = data['text']
     print(text)
     summary = summarizer(text, max_length=250, min_length=30, do_sample=False)
-    print()
-    print()
-    print()
     print(summary)
     return jsonify({'summary': summary[0]['summary_text']})
 

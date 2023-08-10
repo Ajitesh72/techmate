@@ -6,7 +6,7 @@ import { addPost } from "./controller/post";
 import { eventsPage } from "./controller/events";
 import { firstBatch } from "./controller/explore";
 import { addConnection } from "./controller/explore";
-
+import { acceptConnect } from "./controller/connection";
 const multer = require('multer'); // Middleware for handling multipart/form-data (file uploads)
 const upload = multer();
 
@@ -23,5 +23,8 @@ export default function routes(app: Express) {
   // explore page
   app.post("/getfirstprofile", validateToken, firstBatch);
   app.post("/addconnection", validateToken, addConnection);
+  // connection page
+  app.post("/acceptConnect", validateToken, acceptConnect);
+  // app.post("/addconnection", validateToken, addConnection);
   app.post("/logout", validateToken, logout);
 }

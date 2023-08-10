@@ -7,6 +7,7 @@ const post_1 = require("./controller/post");
 const events_1 = require("./controller/events");
 const explore_1 = require("./controller/explore");
 const explore_2 = require("./controller/explore");
+const connection_1 = require("./controller/connection");
 const multer = require('multer'); // Middleware for handling multipart/form-data (file uploads)
 const upload = multer();
 function routes(app) {
@@ -21,6 +22,9 @@ function routes(app) {
     // explore page
     app.post("/getfirstprofile", validate_1.validateToken, explore_1.firstBatch);
     app.post("/addconnection", validate_1.validateToken, explore_2.addConnection);
+    // connection page
+    app.post("/acceptConnect", validate_1.validateToken, connection_1.acceptConnect);
+    // app.post("/addconnection", validateToken, addConnection);
     app.post("/logout", validate_1.validateToken, userController_1.logout);
 }
 exports.default = routes;
