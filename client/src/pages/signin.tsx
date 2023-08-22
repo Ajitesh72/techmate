@@ -24,11 +24,9 @@ export default function SignIn() {
       }
       );
 
-      console.log(userCreatedResponse)
       if (userCreatedResponse.data.message === "User signed in successfully") {
         // User created successfully, now show the success message with a delay
         toast.success(userCreatedResponse.data.message);
-
         setTimeout(() => {
           navigate("/profile"); // Replace "/login" with the actual path to navigate to
         }, 1000);

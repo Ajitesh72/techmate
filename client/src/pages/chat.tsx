@@ -21,7 +21,7 @@ export default function TechmateChat() {
       <span className="flex justify-center items-center text-lg sm:text-3xl font-bold mt-60 relative bg-gradient-to-r from-blue-400 via-indigo-600 to-pink-600 text-transparent bg-clip-text">
     Buy Premium to unlock this feature
   </span>
-  <span className="flex justify-center text-sm text-slate-500">Currently working on making the chat page</span>
+  <span className="flex justify-center text-sm text-slate-500">Currently working on making the chat pages</span>
       </div>
     </div>
   );
