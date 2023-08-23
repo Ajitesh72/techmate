@@ -12,7 +12,7 @@ interface UserReview {
     {
       id: 1,
       name: "Rebbeca",
-      review: "The real-time messaging feature is fantastic! I can engage in meaningful conversations effortlessly, and the privacy controls give me peace of mind. A top-notch app for social connections.",
+      review: "As a tech enthusiast, this app is a goldmine! It keeps me informed about local tech events, allowing me to network and expand my knowledge. A must-have for tech-savvy individuals!",
       pic:rebeccaPic,
     },
     {
