@@ -1,11 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import {useState} from "react"
-import Homenavbar from "../components/navbarHome";
-import logo from "../assets/home-bgd.svg";
 import userReviews from "../utils/reviews";
 
 export default function Home() {
-  const navigate = useNavigate();
 
   return (
 <div>
@@ -299,7 +294,7 @@ export default function Home() {
 
             <hr className="my-6 border-gray-200 sm:mx-auto :border-gray-700 lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
-                <span className="text-sm text-gray-500 sm:text-center :text-gray-400">© 2022 <b>Techmate™</b>. All Rights Reserved.
+                <span className="text-sm text-gray-500 sm:text-center :text-gray-400">© 2023 <b>Techmate™</b>. All Rights Reserved.
                 </span>
                 <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
                     <a href="#" className="text-gray-500 hover:text-gray-900 :hover:text-white">
