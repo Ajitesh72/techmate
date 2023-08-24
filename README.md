@@ -11,7 +11,10 @@
 Techmate is an interactive mobile first web Application that helps to connect the job seeker with potential Employers and to stay upto date with current tech events. The web-app leverages the high performant capabilities of the [Vite]([https://svelte.dev/](https://vitejs.dev/)) to provide a smooth and responsive experience. The project is implemented in a [TypeScript](https://www.typescriptlang.org/) environment and hosted on [Vercel](https://vercel.com).
 
 
-https://github.com/Ajitesh72/techmate/assets/95878363/88bee67f-58df-4ec6-ac0c-8a718672587e
+
+
+https://github.com/Ajitesh72/techmate/assets/95878363/d97e7950-1f84-4073-80ca-700e6104d0d6
+
 
 To view a detailed video-https://www.youtube.com/watch?v=06F4EC4F5ws
 
